@@ -35,27 +35,6 @@ function goToPsychologists() {
         <div>3️⃣ Inicia la sesión de terapia</div>
       </div>
       <button @click="goToPsychologists">Elegir Psicólogo</button>
-    </section>
-
-
-    <section class="appointment">
-      <h2>Agenda tu cita</h2>
-      <div class="steps-container">
-        <div class="step-card">
-          <img :src="iconPaso1" alt="Elige psicólogo" class="step-icon">
-          <p>1️⃣ Elige al psicólogo ideal</p>
-        </div>
-        <div class="step-card">
-          <img :src="iconPaso2" alt="Agenda tu cita" class="step-icon">
-          <p>2️⃣ Agenda tu cita</p>
-        </div>
-        <div class="step-card">
-          <img :src="iconPaso3" alt="Inicia la sesión" class="step-icon">
-          <p>3️⃣ Inicia la sesión de terapia</p>
-        </div>
-      </div>
-
-      <button @click="goToPsychologists">Elegir Psicólogo</button>
 
       <div class="footer-links">
         <a href="#">Aviso de privacidad</a>
