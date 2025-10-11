@@ -261,18 +261,6 @@
       "createdAt": "2024-10-15T10:00:00.000Z"
     },
     {
-      "id": "2",
-      "userId": 1,
-      "psychologistId": 2,
-      "psychologistName": "Lucho Galvez",
-      "psychologistImage": "https://i.pravatar.cc/150?img=33",
-      "psychologistSpecialty": "Conflictos de pareja",
-      "fecha": "2024-10-21",
-      "hora": "19:00",
-      "estado": "confirmada",
-      "createdAt": "2024-10-14T15:30:00.000Z"
-    },
-    {
       "id": "3",
       "userId": 2,
       "psychologistId": 3,
@@ -283,6 +271,18 @@
       "hora": "13:00",
       "estado": "pendiente",
       "createdAt": "2024-10-16T09:00:00.000Z"
+    },
+    {
+      "id": "99cb",
+      "userId": 1,
+      "psychologistId": "2",
+      "psychologistName": "Lucho Galvez",
+      "psychologistImage": "https://i.pravatar.cc/150?img=33",
+      "psychologistSpecialty": "Conflictos de pareja",
+      "fecha": "2024-10-21",
+      "hora": "19:00",
+      "estado": "confirmada",
+      "createdAt": "2025-10-11T06:05:01.919Z"
     }
   ]
 }

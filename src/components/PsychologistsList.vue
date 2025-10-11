@@ -89,8 +89,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
+import { authService } from '../services/authService';
 
+const router = useRouter();
 const psychologists = ref([]);
 const loading = ref(true);
 
@@ -120,7 +123,7 @@ const selectAppointment = async (psychologist, horario, hora) => {
     }
 
     const newAppointment = {
-      userId: currentUser.id,
+      userId: Number(currentUser.id),
       psychologistId: psychologist.id,
       psychologistName: psychologist.nombre,
       psychologistImage: psychologist.imagen,
