@@ -13,7 +13,7 @@
 
         <div class="no-account">
           <p>No tienes cuenta?</p>
-          <a href="#" class="register-link">Regístrate ahora</a>
+          <router-link to="/register" class="register-link">Regístrate ahora</router-link>
         </div>
       </div>
 

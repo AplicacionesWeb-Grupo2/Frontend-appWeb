@@ -13,6 +13,7 @@ const NotFoundView = () => import('../views/NotFoundView.vue');
 
 const routes = [
     { path: '/login', name: 'Login', component: LoginView, meta: { requiresGuest: true } },
+    { path: '/register', name: 'register', component: () => import('../views/RegisterView.vue')},
     { path: '/', name: 'Home', component: HomeView, meta: { requiresAuth: true } },
     { path: '/suscripciones', component: SubscriptionsView, meta: { requiresAuth: true } },
     { path: '/agenda', component: AgendaView, meta: { requiresAuth: true } },

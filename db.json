@@ -13,6 +13,25 @@
       "password": "test123",
       "nombre": "Usuario Test",
       "createdAt": "2024-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "6723",
+      "name": "Diego",
+      "email": "prueba@gmail.com",
+      "password": "Prueba1",
+      "createdAt": "2025-10-11T05:30:57.353Z"
+    }
+  ],
+  "appointments": [
+    {
+      "id": 1,
+      "title": "Cita con Psicólogo - Dra. López",
+      "start": "2025-10-15T10:00:00"
+    },
+    {
+      "id": 2,
+      "title": "Terapia con Dr. Ramírez",
+      "start": "2025-10-18T15:30:00"
     }
   ]
 }

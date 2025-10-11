@@ -22,7 +22,7 @@ const logout = () => {
       <nav class="main-nav">
         <router-link to="/">Inicio</router-link>
         <router-link to="/suscripciones">Paquetes</router-link>
-        <router-link to="/agenda">Mensajes</router-link>
+        <router-link to="/agenda">Calendario</router-link>
         <router-link to="/psicologos">Psicólogos</router-link>
       </nav>
     </div>

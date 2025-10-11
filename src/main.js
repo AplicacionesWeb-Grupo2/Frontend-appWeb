@@ -3,20 +3,38 @@ import App from './App.vue'
 
 import './assets/styles/main.css';
 import router from './router';
+
 import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
-import {Button, InputText, Card, Toolbar, Image } from 'primevue'
 
-createApp(App)
-    .use(PrimeVue,{
-        theme: {
-            preset: Aura
-        }
-    })
-    .use(router)
+// Componentes PrimeVue
+import {
+    Button,
+    InputText,
+    Card,
+    Toolbar,
+    Image,
+    Dialog,
+    Calendar,
+    Toast
+} from 'primevue';
+
+import ToastService from 'primevue/toastservice';
+
+const app = createApp(App);
+
+app.use(PrimeVue, { theme: { preset: Aura } });
+app.use(router);
+app.use(ToastService);
+
+app
     .component('pv-Image', Image)
     .component('pv-Button', Button)
     .component('pv-InputText', InputText)
     .component('pv-Card', Card)
     .component('pv-Toolbar', Toolbar)
-    .mount('#app')
+    .component('pv-Dialog', Dialog)
+    .component('pv-Calendar', Calendar)
+    .component('pv-Toast', Toast);
+
+app.mount('#app');
