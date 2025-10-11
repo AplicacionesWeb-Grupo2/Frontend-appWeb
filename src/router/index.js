@@ -7,6 +7,7 @@ import AgendaView from '../views/AgendaView.vue';
 import TasksView from '../views/TasksView.vue';
 import ContentView from '../views/ContentView.vue';
 import PsychologistsView from '../views/PsychologistsView.vue';
+import PsychologistsList from '../components/PsychologistsList.vue';
 
 const routes = [
     {
@@ -48,7 +49,13 @@ const routes = [
     {
         path: '/psicologos',
         name: 'Psychologists',
-        component: PsychologistsView,
+        component: PsychologistsView,  // Esta es la vista de TUS CITAS
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/elegir-psicologo',
+        name: 'PsychologistsList',
+        component: PsychologistsList,  // Esta es la lista completa para elegir
         meta: { requiresAuth: true }
     },
 ];
