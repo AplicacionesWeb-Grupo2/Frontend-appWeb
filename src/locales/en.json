@@ -1,0 +1,140 @@
+{
+  "home": {
+    "greeting": "¡Hello,",
+    "banner": "You don't have an active package yet. Buy one and save up to 10% on your next appointments.",
+    "cards": {
+      "subscriptions": "Subscriptions",
+      "agenda": "Agenda",
+      "tasks": "Tasks",
+      "content": "Content"
+    },
+    "appointment": {
+      "title": "Schedule your appointment",
+      "steps": {
+        "1": "Choose the ideal psychologist",
+        "2": "Schedule your appointment",
+        "3": "Start the therapy session"
+      },
+      "button": "Choose Psychologist"
+    },
+    "footer": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms and Conditions"
+    }
+  },
+
+"tasks": {
+    "title": "📝 Your Tasks",
+    "placeholder": "Add new task...",
+    "addButton": "Add"
+  },
+  "content": {
+    "title": "📚 Your Contents",
+    "placeholder": "Add new content...",
+    "addButton": "Add"
+  },
+
+  "subscriptions": {
+    "header": {
+      "title": "💼 Choose your ideal plan",
+      "subtitle": "Enhance your experience with <strong>EiraMind</strong> and get exclusive benefits depending on your subscription."
+    },
+    "card": {
+      "choose": "Choose Plan"
+    },
+    "footer": "💙 All plans include access to our certified professionals."
+  },
+
+  "agenda": {
+    "title": "Appointments Schedule",
+    "subtitle": "Check your upcoming sessions or schedule new appointments with your psychologist.",
+    "newAppointment": "Schedule New Appointment",
+    "deleteAppointment": "Delete Appointment",
+    "deleteConfirm": "Are you sure you want to delete the appointment \"{title}\"?",
+    "fields": {
+      "title": "Reason or name of the appointment:",
+      "titlePlaceholder": "Example: Appointment with Dr. Smith",
+      "date": "Date and Time:",
+      "datePlaceholder": "Select date and time"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save Appointment",
+      "delete": "Delete"
+    },
+    "toast": {
+      "requiredField": "Required field",
+      "enterTitle": "You must enter the name or reason of the appointment before saving.",
+      "requiredDate": "Date required",
+      "selectDate": "Select a date and time for the appointment.",
+      "saved": "Appointment saved",
+      "savedDetail": "Your appointment has been saved successfully.",
+      "deleted": "Appointment deleted",
+      "deletedDetail": "The appointment \"{title}\" was deleted.",
+      "error": "Error",
+      "errorDetail": "Could not save the appointment.",
+      "errorDelete": "Could not delete the appointment."
+    }
+  },
+
+  "psychologists": {
+    "locale": "en-US",
+    "title": "My Psychologists",
+    "subtitle": "Here you can see the psychologists you have scheduled appointments with",
+    "loading": "Loading your appointments...",
+    "noAppointments": {
+      "title": "You have no scheduled appointments",
+      "subtitle": "Schedule your first appointment with a psychologist",
+      "button": "Choose Psychologist"
+    },
+    "status": {
+      "confirmed": "Confirmed",
+      "pending": "Pending"
+    },
+    "fields": {
+      "date": "Date",
+      "time": "Time"
+    },
+    "actions": {
+      "view": "View Details",
+      "cancel": "Cancel Appointment",
+      "start": "Start Session",
+      "newAppointment": "Schedule New Appointment"
+    },
+    "detailsMessage": "Appointment details with {name}\nDate: {date}\nTime: {time}",
+    "cancelConfirm": "Are you sure you want to cancel this appointment?",
+    "cancelSuccess": "Appointment cancelled successfully",
+    "cancelError": "Error cancelling the appointment",
+    "startSession": "Starting session with {name}..."
+  },
+
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Adjust your profile and preferences according to your needs",
+    "profile": {
+      "title": "Profile",
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "save": "Save changes",
+      "messages": {
+        "updated": "Profile updated successfully",
+        "error": "Error updating profile"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "email": "Email",
+      "push": "Push",
+      "save": "Save preferences"
+    },
+    "preferences": {
+      "title": "Preferences",
+      "language": "Language"
+    },
+    "actions": {
+      "logout": "Logout",
+      "loginRequired": "You must log in to continue"
+    }
+  }
+}

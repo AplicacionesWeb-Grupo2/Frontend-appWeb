@@ -1,0 +1,140 @@
+{
+  "home": {
+    "greeting": "¡Saludos, ",
+    "banner": "Aún no tienes un paquete activo. Compra uno y ahorra hasta un 10% en tus próximas citas.",
+    "cards": {
+      "subscriptions": "Suscripciones",
+      "agenda": "Agenda",
+      "tasks": "Tareas",
+      "content": "Contenido"
+    },
+    "appointment": {
+      "title": "Agenda tu cita",
+      "steps": {
+        "1": "Elige al psicólogo ideal",
+        "2": "Agenda tu cita",
+        "3": "Inicia la sesión de terapia"
+      },
+      "button": "Elegir Psicólogo"
+    },
+    "footer": {
+      "privacy": "Aviso de privacidad",
+      "terms": "Términos y condiciones"
+    }
+  },
+
+"tasks": {
+    "title": "📝 Tus Tareas",
+    "placeholder": "Agregar nueva tarea...",
+    "addButton": "Agregar"
+  },
+  "content": {
+    "title": "📚 Tus Contenidos",
+    "placeholder": "Agregar nuevo contenido...",
+    "addButton": "Agregar"
+  },
+
+  "subscriptions": {
+    "header": {
+      "title": "💼 Elige tu plan ideal",
+      "subtitle": "Mejora tu experiencia con <strong>EiraMind</strong> y obtén beneficios exclusivos según tu suscripción."
+    },
+    "card": {
+      "choose": "Elegir plan"
+    },
+    "footer": "💙 Todos los planes incluyen acceso a nuestros profesionales certificados."
+  },
+
+  "agenda": {
+    "title": "Agenda de Citas",
+    "subtitle": "Consulta tus próximas sesiones o agenda nuevas citas con tu psicólogo.",
+    "newAppointment": "Agendar nueva cita",
+    "deleteAppointment": "Eliminar cita",
+    "deleteConfirm": "¿Seguro que deseas eliminar la cita \"{title}\"?",
+    "fields": {
+      "title": "Motivo o nombre de la cita:",
+      "titlePlaceholder": "Ejemplo: Cita con Dr. Pérez",
+      "date": "Fecha y hora:",
+      "datePlaceholder": "Selecciona fecha y hora"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar cita",
+      "delete": "Eliminar"
+    },
+    "toast": {
+      "requiredField": "Campo obligatorio",
+      "enterTitle": "Debes ingresar el nombre o motivo de la cita antes de guardarla.",
+      "requiredDate": "Fecha requerida",
+      "selectDate": "Selecciona una fecha y hora para la cita.",
+      "saved": "Cita registrada",
+      "savedDetail": "Tu cita ha sido guardada correctamente.",
+      "deleted": "Cita eliminada",
+      "deletedDetail": "Se eliminó la cita \"{title}\"",
+      "error": "Error",
+      "errorDetail": "No se pudo guardar la cita.",
+      "errorDelete": "No se pudo eliminar la cita."
+    }
+  },
+
+  "psychologists": {
+    "locale": "es-ES",
+    "title": "Mis Psicólogos",
+    "subtitle": "Aquí puedes ver los psicólogos con los que has agendado citas",
+    "loading": "Cargando tus citas...",
+    "noAppointments": {
+      "title": "No tienes citas agendadas",
+      "subtitle": "Agenda tu primera cita con un psicólogo",
+      "button": "Elegir Psicólogo"
+    },
+    "status": {
+      "confirmed": "Confirmada",
+      "pending": "Pendiente"
+    },
+    "fields": {
+      "date": "Fecha",
+      "time": "Hora"
+    },
+    "actions": {
+      "view": "Ver detalles",
+      "cancel": "Cancelar cita",
+      "start": "Iniciar sesión",
+      "newAppointment": "Agendar nueva cita"
+    },
+    "detailsMessage": "Detalles de la cita con {name}\nFecha: {date}\nHora: {time}",
+    "cancelConfirm": "¿Estás seguro de que deseas cancelar esta cita?",
+    "cancelSuccess": "Cita cancelada exitosamente",
+    "cancelError": "Error al cancelar la cita",
+    "startSession": "Iniciando sesión con {name}..."
+  },
+
+  "settings": {
+    "title": "Configuración",
+    "subtitle": "Ajusta tu perfil y preferencias según tus necesidades",
+    "profile": {
+      "title": "Perfil",
+      "name": "Nombre",
+      "email": "Email",
+      "password": "Contraseña",
+      "save": "Guardar cambios",
+      "messages": {
+        "updated": "Perfil actualizado correctamente",
+        "error": "Error al actualizar el perfil"
+      }
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "email": "Email",
+      "push": "Push",
+      "save": "Guardar preferencias"
+    },
+    "preferences": {
+      "title": "Preferencias",
+      "language": "Idioma"
+    },
+    "actions": {
+      "logout": "Cerrar sesión",
+      "loginRequired": "Debes iniciar sesión para continuar"
+    }
+  }
+}

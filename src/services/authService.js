@@ -1,4 +1,3 @@
-// src/services/authService.js
 const API_URL = 'http://localhost:3000/users';
 
 export const authService = {
@@ -33,36 +32,30 @@ export const authService = {
     getUser() {
         const user = localStorage.getItem('user');
         return user ? JSON.parse(user) : null;
-    }
+    },
 
+    getCurrentUser() {
+        return this.getUser();
+    }
 };
 
 export const registerUser = async (userData) => {
-    const res = await fetch('http://localhost:3000/users');
+    const res = await fetch(API_URL);
     const users = await res.json();
 
-    // Validar si el correo ya está registrado
-    const exists = users.find(u => u.email === userData.email);
-    if (exists) {
-        throw new Error('El correo ya está registrado. Intenta con otro.');
+    if (users.find(u => u.email === userData.email)) {
+        throw new Error('El correo ya está registrado.');
     }
 
-    // Crear nuevo usuario
-    const newUser = {
-        ...userData,
-        createdAt: new Date().toISOString()
-    };
+    const newUser = { ...userData, createdAt: new Date().toISOString() };
 
-    const response = await fetch('http://localhost:3000/users', {
+    const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUser)
     });
 
-    if (!response.ok) {
-        throw new Error('Error al registrar el usuario.');
-    }
+    if (!response.ok) throw new Error('Error al registrar el usuario.');
 
     return await response.json();
 };
-

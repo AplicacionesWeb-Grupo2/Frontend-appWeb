@@ -1,25 +1,26 @@
-<script setup></script>
+<script setup>
+import { useI18n } from 'vue-i18n';
+const { locale } = useI18n();
+</script>
 
 <template>
-  <pv-Toolbar class="shadow-2 surface-ground px-4 py-2 flex justify-between">
-    <div class="flex align-items-center gap-4">
-      <h2 class="text-2xl font-bold text-primary">EiraMind</h2>
-      <router-link to="/">Inicio</router-link>
-      <router-link to="/about">Nosotros</router-link>
-    </div>
-    <div>
-      <pv-Button label="Ingresar" icon="pi pi-user" class="p-button-rounded p-button-primary" />
-    </div>
-  </pv-Toolbar>
+  <select v-model="locale" class="language-switcher">
+    <option value="es">Español</option>
+    <option value="en">English</option>
+  </select>
 </template>
 
 <style scoped>
-a {
+.language-switcher {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #1a1a1a;
+  background-color: #1e1b4b;
   color: #333;
-  text-decoration: none;
-  transition: color 0.2s;
+  font-weight: 500;
+  cursor: pointer;
 }
-a:hover {
-  color: #003d91;
+.language-switcher option {
+  color: #333;
 }
 </style>

@@ -4,8 +4,9 @@ import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { useToast } from 'primevue/usetoast';
+import { useI18n } from 'vue-i18n';
 
-// Inicializar Toast
+const { t } = useI18n(); // Función de traducción
 const toast = useToast();
 
 // Variables reactivas
@@ -31,27 +32,21 @@ const calendarOptions = ref({
   },
   eventColor: '#003d91',
   eventTextColor: 'white',
-
-  // Aplicar estilo al montar los eventos (cursor tipo mano)
   eventDidMount(info) {
     info.el.style.cursor = 'pointer';
   },
-
-  // Click en un día → abrir formulario de nueva cita
   dateClick(info) {
     newEvent.value.start = new Date(info.dateStr);
     newEvent.value.title = '';
     showDialog.value = true;
   },
-
-  // Click en una cita → confirmar eliminación
   eventClick(info) {
     selectedEvent.value = info.event;
     showDeleteDialog.value = true;
   },
 });
 
-// Cargar las citas desde la fake API
+// Fetch de citas
 const fetchEvents = async () => {
   try {
     const res = await fetch('http://localhost:3000/appointments');
@@ -63,23 +58,22 @@ const fetchEvents = async () => {
   }
 };
 
-// Guardar nueva cita con validación
+// Guardar cita
 const saveAppointment = async () => {
   if (!newEvent.value.title.trim()) {
     toast.add({
       severity: 'warn',
-      summary: 'Campo obligatorio',
-      detail: 'Debes ingresar el nombre o motivo de la cita antes de guardarla.',
+      summary: t('agenda.toast.requiredField'),
+      detail: t('agenda.toast.enterTitle'),
       life: 3000
     });
     return;
   }
-
   if (!newEvent.value.start) {
     toast.add({
       severity: 'warn',
-      summary: 'Fecha requerida',
-      detail: 'Selecciona una fecha y hora para la cita.',
+      summary: t('agenda.toast.requiredDate'),
+      detail: t('agenda.toast.selectDate'),
       life: 3000
     });
     return;
@@ -101,8 +95,8 @@ const saveAppointment = async () => {
 
     toast.add({
       severity: 'success',
-      summary: 'Cita registrada',
-      detail: 'Tu cita ha sido guardada correctamente.',
+      summary: t('agenda.toast.saved'),
+      detail: t('agenda.toast.savedDetail'),
       life: 2500
     });
 
@@ -112,8 +106,8 @@ const saveAppointment = async () => {
   } catch (error) {
     toast.add({
       severity: 'error',
-      summary: 'Error',
-      detail: 'No se pudo guardar la cita.',
+      summary: t('agenda.toast.error'),
+      detail: t('agenda.toast.errorDetail'),
       life: 2500
     });
     console.error('Error al guardar la cita:', error);
@@ -122,7 +116,7 @@ const saveAppointment = async () => {
   }
 };
 
-// Eliminar cita seleccionada
+// Eliminar cita
 const deleteAppointment = async () => {
   if (!selectedEvent.value) return;
 
@@ -133,8 +127,8 @@ const deleteAppointment = async () => {
 
     toast.add({
       severity: 'info',
-      summary: 'Cita eliminada',
-      detail: `Se eliminó la cita "${selectedEvent.value.title}"`,
+      summary: t('agenda.toast.deleted'),
+      detail: t('agenda.toast.deletedDetail', { title: selectedEvent.value.title }),
       life: 2500
     });
 
@@ -144,8 +138,8 @@ const deleteAppointment = async () => {
   } catch (error) {
     toast.add({
       severity: 'error',
-      summary: 'Error',
-      detail: 'No se pudo eliminar la cita.',
+      summary: t('agenda.toast.error'),
+      detail: t('agenda.toast.errorDelete'),
       life: 2500
     });
     console.error('Error al eliminar la cita:', error);
@@ -160,48 +154,47 @@ onMounted(() => {
 
 <template>
   <div class="agenda-container">
-    <!-- Notificaciones -->
     <pv-Toast />
 
-    <h1>Agenda de Citas</h1>
-    <p class="subtitle">Consulta tus próximas sesiones o agenda nuevas citas con tu psicólogo.</p>
+    <h1>{{ t('agenda.title') }}</h1>
+    <p class="subtitle">{{ t('agenda.subtitle') }}</p>
 
     <div class="calendar">
       <FullCalendar :options="calendarOptions" />
     </div>
 
-    <!-- Modal para nueva cita -->
-    <pv-Dialog v-model:visible="showDialog" header="Agendar nueva cita" modal class="dialog-custom">
+    <!-- Modal nueva cita -->
+    <pv-Dialog v-model:visible="showDialog" :header="t('agenda.newAppointment')" modal class="dialog-custom">
       <div class="form">
         <div class="field">
-          <label for="title">Motivo o nombre de la cita:</label>
+          <label for="title">{{ t('agenda.fields.title') }}</label>
           <pv-InputText
               id="title"
               v-model="newEvent.title"
-              placeholder="Ejemplo: Cita con Dr. Pérez"
+              :placeholder="t('agenda.fields.titlePlaceholder')"
           />
         </div>
 
         <div class="field">
-          <label for="date">Fecha y hora:</label>
+          <label for="date">{{ t('agenda.fields.date') }}</label>
           <pv-Calendar
               id="date"
               v-model="newEvent.start"
               showTime
               hourFormat="24"
               dateFormat="yy-mm-dd"
-              placeholder="Selecciona fecha y hora"
+              :placeholder="t('agenda.fields.datePlaceholder')"
           />
         </div>
 
         <div class="actions">
           <pv-Button
-              label="Cancelar"
+              :label="t('agenda.actions.cancel')"
               severity="secondary"
               @click="showDialog = false"
           />
           <pv-Button
-              label="Guardar cita"
+              :label="t('agenda.actions.save')"
               :loading="loading"
               @click="saveAppointment"
               class="save-btn"
@@ -210,22 +203,22 @@ onMounted(() => {
       </div>
     </pv-Dialog>
 
-    <!-- Modal de eliminación -->
+    <!-- Modal eliminar cita -->
     <pv-Dialog
         v-model:visible="showDeleteDialog"
-        header="Eliminar cita"
+        :header="t('agenda.deleteAppointment')"
         modal
         class="dialog-custom"
     >
-      <p>¿Seguro que deseas eliminar la cita "<strong>{{ selectedEvent?.title }}</strong>"?</p>
+      <p>{{ t('agenda.deleteConfirm', { title: selectedEvent?.title }) }}</p>
       <div class="actions">
         <pv-Button
-            label="Cancelar"
+            :label="t('agenda.actions.cancel')"
             severity="secondary"
             @click="showDeleteDialog = false"
         />
         <pv-Button
-            label="Eliminar"
+            :label="t('agenda.actions.delete')"
             severity="danger"
             @click="deleteAppointment"
         />
