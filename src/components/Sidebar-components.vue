@@ -1,5 +1,16 @@
 <script setup>
 import logoUrl from '../assets/icons/logo_EiraMind.png';
+import { useRouter } from 'vue-router';
+import { authService } from '../services/authService';
+
+
+const router = useRouter();
+
+const logout = () => {
+  authService.logout();
+  router.push('/login');
+};
+
 </script>
 
 <template>
@@ -21,7 +32,11 @@ import logoUrl from '../assets/icons/logo_EiraMind.png';
     <div class="config">
       <router-link to="/configuracion">Configuracion</router-link>
     </div>
+       <button @click="logout" class="logout-btn">
+         <i class="pi pi-sign-out"></i>Cerrar Sesión
+       </button>
   </aside>
+
 </template>
 
 <style scoped>
