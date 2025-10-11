@@ -16,23 +16,26 @@ defineProps({
 <style scoped>
 .card {
   background: white;
-  width: 120px;
-  height: 120px;
-  border-radius: 12px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 140px;
+  height: 140px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  color: #1b1b1b;
-  transition: transform 0.2s;
+  color: #003d91;
+  transition: all 0.3s ease;
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
+
 .icon {
-  font-size: 2rem;
+  font-size: 2.5rem;
+  margin-bottom: 8px;
 }
 </style>

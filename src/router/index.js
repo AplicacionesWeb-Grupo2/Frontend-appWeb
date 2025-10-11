@@ -1,76 +1,38 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { authService } from '../services/authService';
-import LoginView from '../views/LoginView.vue';
-import HomeView from '../views/HomeView.vue';
-import SubscriptionsView from '../views/SubscriptionsView.vue';
-import AgendaView from '../views/AgendaView.vue';
-import TasksView from '../views/TasksView.vue';
-import ContentView from '../views/ContentView.vue';
-import PsychologistsView from '../views/PsychologistsView.vue';
+
+// Lazy loading para mejor rendimiento
+const LoginView = () => import('../views/LoginView.vue');
+const HomeView = () => import('../views/HomeView.vue');
+const SubscriptionsView = () => import('../views/SubscriptionsView.vue');
+const AgendaView = () => import('../views/AgendaView.vue');
+const TasksView = () => import('../views/TasksView.vue');
+const ContentView = () => import('../views/ContentView.vue');
+const PsychologistsView = () => import('../views/PsychologistsView.vue');
+const NotFoundView = () => import('../views/NotFoundView.vue');
 
 const routes = [
-    {
-        path: '/login',
-        name: 'Login',
-        component: LoginView,
-        meta: { requiresGuest: true }
-    },
-    {
-        path: '/',
-        name: 'Home',
-        component: HomeView,
-        meta: { requiresAuth: true }
-    },
-    {
-        path: '/suscripciones',
-        name: 'Subscriptions',
-        component: SubscriptionsView,
-        meta: { requiresAuth: true }
-    },
-    {
-        path: '/agenda',
-        name: 'Agenda',
-        component: AgendaView,
-        meta: { requiresAuth: true }
-    },
-    {
-        path: '/tareas',
-        name: 'Tasks',
-        component: TasksView,
-        meta: { requiresAuth: true }
-    },
-    {
-        path: '/contenido',
-        name: 'Content',
-        component: ContentView,
-        meta: { requiresAuth: true }
-    },
-    {
-        path: '/psicologos',
-        name: 'Psychologists',
-        component: PsychologistsView,
-        meta: { requiresAuth: true }
-    },
+    { path: '/login', name: 'Login', component: LoginView, meta: { requiresGuest: true } },
+    { path: '/', name: 'Home', component: HomeView, meta: { requiresAuth: true } },
+    { path: '/suscripciones', component: SubscriptionsView, meta: { requiresAuth: true } },
+    { path: '/agenda', component: AgendaView, meta: { requiresAuth: true } },
+    { path: '/tareas', component: TasksView, meta: { requiresAuth: true } },
+    { path: '/contenido', component: ContentView, meta: { requiresAuth: true } },
+    { path: '/psicologos', component: PsychologistsView, meta: { requiresAuth: true } },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundView }
 ];
 
 const router = createRouter({
     history: createWebHistory(),
-    routes,
+    routes
 });
 
-// Guard de navegación global
 router.beforeEach((to, from, next) => {
-    const isAuthenticated = authService.isAuthenticated();
+    const isAuth = authService.isAuthenticated();
 
-    if (to.meta.requiresAuth && !isAuthenticated) {
-        // Si la ruta requiere autenticación y el usuario no está autenticado
-        next('/login');
-    } else if (to.meta.requiresGuest && isAuthenticated) {
-        // Si la ruta es para invitados (login) y el usuario ya está autenticado
-        next('/');
-    } else {
-        next();
-    }
+    if (to.meta.requiresAuth && !isAuth) next('/login');
+    else if (to.meta.requiresGuest && isAuth) next('/');
+    else next();
 });
 
 export default router;

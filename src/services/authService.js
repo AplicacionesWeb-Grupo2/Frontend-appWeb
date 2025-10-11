@@ -1,40 +1,37 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:3000';
+// src/services/authService.js
+const API_URL = 'http://localhost:3000/users';
 
 export const authService = {
     async login(email, password) {
         try {
-            const response = await axios.get(`${API_URL}/users`);
-            const users = response.data;
+            const res = await fetch(`${API_URL}?email=${email}&password=${password}`);
+            const data = await res.json();
 
-            const user = users.find(u => u.email === email && u.password === password);
-
-            if (user) {
-                const userWithoutPassword = { ...user };
-                delete userWithoutPassword.password;
-                localStorage.setItem('user', JSON.stringify(userWithoutPassword));
-                localStorage.setItem('isAuthenticated', 'true');
+            if (data.length > 0) {
+                const user = data[0];
+                localStorage.setItem('auth', 'true');
+                localStorage.setItem('user', JSON.stringify(user));
                 return true;
+            } else {
+                return false;
             }
-            return false;
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
-            throw error;
+            return false;
         }
     },
 
     logout() {
+        localStorage.removeItem('auth');
         localStorage.removeItem('user');
-        localStorage.removeItem('isAuthenticated');
     },
 
     isAuthenticated() {
-        return localStorage.getItem('isAuthenticated') === 'true';
+        return localStorage.getItem('auth') === 'true';
     },
 
-    getCurrentUser() {
-        const userStr = localStorage.getItem('user');
-        return userStr ? JSON.parse(userStr) : null;
+    getUser() {
+        const user = localStorage.getItem('user');
+        return user ? JSON.parse(user) : null;
     }
 };
