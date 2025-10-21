@@ -1,0 +1,16 @@
+{
+  "greeting": "¡Bienvenido de nuevo!",
+  "welcomeMessage": "Gestiona tus citas psicológicas",
+  "noPackage": "No tienes ningún paquete activo",
+  "packageMessage": "Activa un plan hoy y ahorra hasta un 10% en tus próximas citas.",
+  "ctaButton": "Explorar Paquetes",
+  "subscriptions": "SUSCRIPCIONES",
+  "schedule": "AGENDA",
+  "tasks": "TAREAS",
+  "content": "CONTENIDO",
+  "scheduleTitle": "¿Cómo agendar tu cita?",
+  "step1": "Elige tu psicólogo",
+  "step2": "Selecciona fecha y hora",
+  "step3": "Confirma tu cita",
+  "choosePsychologist": "Elegir Psicólogo"
+}

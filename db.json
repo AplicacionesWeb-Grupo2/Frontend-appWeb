@@ -1,0 +1,313 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@eiramind.com",
+      "password": "admin123",
+      "nombre": "Administrador",
+      "tipo": "paciente",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "email": "usuario@test.com",
+      "password": "test123",
+      "nombre": "Usuario Test",
+      "tipo": "paciente",
+      "createdAt": "2024-01-15T00:00:00.000Z"
+    }
+  ],
+  "psychologists": [
+    {
+      "id": "1",
+      "email": "alberto.salas@eiramind.com",
+      "password": "psi123",
+      "nombre": "Alberto Salas",
+      "tipo": "psicologo",
+      "especialidad": "violencia, ansiedad",
+      "calificacion": 5,
+      "imagen": "https://i.pravatar.cc/150?img=12",
+      "descripcion": "Especialista en terapia cognitivo-conductual con 10 años de experiencia trabajando con pacientes con ansiedad y estrés.",
+      "proximosHorarios": [
+        {
+          "fecha": "2024-10-22",
+          "dia": "Martes 22 octubre",
+          "horas": [
+            "10:00",
+            "18:00",
+            "20:00",
+            "22:00"
+          ]
+        },
+        {
+          "fecha": "2024-10-23",
+          "dia": "Miércoles 23 octubre",
+          "horas": [
+            "09:00",
+            "14:00",
+            "16:00",
+            "21:00"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "email": "beatriz.montalvo@eiramind.com",
+      "password": "psi123",
+      "nombre": "Beatriz Montalvo",
+      "tipo": "psicologo",
+      "especialidad": "depresión, autoestima",
+      "calificacion": 4,
+      "imagen": "https://i.pravatar.cc/150?img=45",
+      "descripcion": "Psicóloga clínica enfocada en terapia humanista y desarrollo personal. Experiencia con terapia de parejas.",
+      "proximosHorarios": [
+        {
+          "fecha": "2024-10-22",
+          "dia": "Martes 22 octubre",
+          "horas": [
+            "11:00",
+            "15:00",
+            "19:00"
+          ]
+        },
+        {
+          "fecha": "2024-10-24",
+          "dia": "Jueves 24 octubre",
+          "horas": [
+            "08:00",
+            "12:00",
+            "17:00",
+            "20:00"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "email": "carlos.mendez@eiramind.com",
+      "password": "psi123",
+      "nombre": "Carlos Méndez",
+      "tipo": "psicologo",
+      "especialidad": "estrés laboral, coaching",
+      "calificacion": 5,
+      "imagen": "https://i.pravatar.cc/150?img=33",
+      "descripcion": "Coach profesional y psicólogo organizacional certificado. Especializado en burnout y productividad.",
+      "proximosHorarios": [
+        {
+          "fecha": "2024-10-23",
+          "dia": "Miércoles 23 octubre",
+          "horas": [
+            "10:00",
+            "13:00",
+            "16:00",
+            "19:00"
+          ]
+        },
+        {
+          "fecha": "2024-10-25",
+          "dia": "Viernes 25 octubre",
+          "horas": [
+            "09:00",
+            "11:00",
+            "14:00",
+            "18:00"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "email": "diana.lopez@eiramind.com",
+      "password": "psi123",
+      "nombre": "Diana López",
+      "tipo": "psicologo",
+      "especialidad": "trauma, duelo",
+      "calificacion": 5,
+      "imagen": "https://i.pravatar.cc/150?img=47",
+      "descripcion": "Especialista en trauma y EMDR. Amplia experiencia en procesos de duelo y pérdida emocional.",
+      "proximosHorarios": [
+        {
+          "fecha": "2024-10-22",
+          "dia": "Martes 22 octubre",
+          "horas": [
+            "10:00",
+            "14:00",
+            "16:00"
+          ]
+        },
+        {
+          "fecha": "2024-10-24",
+          "dia": "Jueves 24 octubre",
+          "horas": [
+            "09:00",
+            "13:00",
+            "15:00",
+            "19:00"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "email": "eduardo.ramirez@eiramind.com",
+      "password": "psi123",
+      "nombre": "Eduardo Ramírez",
+      "tipo": "psicologo",
+      "especialidad": "adicciones, mindfulness",
+      "calificacion": 4,
+      "imagen": "https://i.pravatar.cc/150?img=68",
+      "descripcion": "Psicólogo especializado en tratamiento de adicciones y técnicas de mindfulness para manejo del estrés.",
+      "proximosHorarios": [
+        {
+          "fecha": "2024-10-23",
+          "dia": "Miércoles 23 octubre",
+          "horas": [
+            "11:00",
+            "15:00",
+            "18:00",
+            "20:00"
+          ]
+        },
+        {
+          "fecha": "2024-10-25",
+          "dia": "Viernes 25 octubre",
+          "horas": [
+            "10:00",
+            "14:00",
+            "17:00"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "email": "fernanda.torres@eiramind.com",
+      "password": "psi123",
+      "nombre": "Fernanda Torres",
+      "tipo": "psicologo",
+      "especialidad": "adolescentes, familia",
+      "calificacion": 5,
+      "imagen": "https://i.pravatar.cc/150?img=38",
+      "descripcion": "Psicóloga infantil y familiar. Especializada en terapia con adolescentes y resolución de conflictos familiares.",
+      "proximosHorarios": [
+        {
+          "fecha": "2024-10-22",
+          "dia": "Martes 22 octubre",
+          "horas": [
+            "09:00",
+            "13:00",
+            "17:00"
+          ]
+        },
+        {
+          "fecha": "2024-10-24",
+          "dia": "Jueves 24 octubre",
+          "horas": [
+            "10:00",
+            "14:00",
+            "16:00",
+            "19:00"
+          ]
+        },
+        {
+          "fecha": "2024-10-25",
+          "dia": "Viernes 25 octubre",
+          "horas": [
+            "08:00",
+            "12:00",
+            "15:00",
+            "18:00"
+          ]
+        }
+      ]
+    }
+  ],
+  "appointments": [],
+  "recordings": [
+    {
+      "id": "1",
+      "userId": "1",
+      "psychologistId": "1",
+      "psychologistName": "Alberto Salas",
+      "sessionTopic": "Manejo de ansiedad y técnicas de relajación",
+      "description": "Sesión introductoria sobre técnicas de respiración y mindfulness para controlar la ansiedad.",
+      "date": "2024-10-10",
+      "duration": 60,
+      "thumbnail": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=300&fit=crop",
+      "videoUrl": "https://www.example.com/video1.mp4",
+      "watched": false,
+      "notes": "El paciente mostró buena receptividad a las técnicas enseñadas. Se recomienda practicar diariamente la respiración profunda."
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "psychologistId": "2",
+      "psychologistName": "Beatriz Montalvo",
+      "sessionTopic": "Gestión emocional y autoconocimiento",
+      "description": "Exploración de emociones y desarrollo de estrategias de autorregulación emocional.",
+      "date": "2024-10-05",
+      "duration": 45,
+      "thumbnail": "https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?w=400&h=300&fit=crop",
+      "videoUrl": "https://www.example.com/video2.mp4",
+      "watched": true,
+      "notes": "Se trabajó en identificar patrones emocionales recurrentes. El paciente completó el diario emocional asignado."
+    },
+    {
+      "id": "3",
+      "userId": "1",
+      "psychologistId": "1",
+      "psychologistName": "Alberto Salas",
+      "sessionTopic": "Estrategias de afrontamiento ante el estrés",
+      "description": "Desarrollo de herramientas prácticas para manejar situaciones estresantes del día a día.",
+      "date": "2024-09-28",
+      "duration": 60,
+      "thumbnail": "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=400&h=300&fit=crop",
+      "videoUrl": "https://www.example.com/video3.mp4",
+      "watched": true,
+      "notes": "Excelente progreso. El paciente implementó exitosamente las técnicas de reestructuración cognitiva."
+    },
+    {
+      "id": "4",
+      "userId": "1",
+      "psychologistId": "4",
+      "psychologistName": "Diana López",
+      "sessionTopic": "Procesamiento de trauma y sanación emocional",
+      "description": "Primera sesión de EMDR para procesar eventos traumáticos del pasado.",
+      "date": "2024-09-15",
+      "duration": 90,
+      "thumbnail": "https://images.unsplash.com/photo-1531983412531-1f49a365ffed?w=400&h=300&fit=crop",
+      "videoUrl": "https://www.example.com/video4.mp4",
+      "watched": false,
+      "notes": "Sesión intensa pero productiva. El paciente mostró avances significativos en el procesamiento del trauma."
+    },
+    {
+      "id": "5",
+      "userId": "1",
+      "psychologistId": "3",
+      "psychologistName": "Carlos Méndez",
+      "sessionTopic": "Equilibrio trabajo-vida personal",
+      "description": "Estrategias para prevenir el burnout y mejorar la gestión del tiempo laboral.",
+      "date": "2024-09-10",
+      "duration": 60,
+      "thumbnail": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=300&fit=crop",
+      "videoUrl": "https://www.example.com/video5.mp4",
+      "watched": true,
+      "notes": "Se establecieron límites saludables entre trabajo y vida personal. El paciente implementará técnicas de desconexión digital."
+    },
+    {
+      "id": "6",
+      "userId": "1",
+      "psychologistId": "5",
+      "psychologistName": "Eduardo Ramírez",
+      "sessionTopic": "Mindfulness para la vida cotidiana",
+      "description": "Introducción a prácticas de atención plena y meditación guiada.",
+      "date": "2024-08-30",
+      "duration": 50,
+      "thumbnail": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=300&fit=crop",
+      "videoUrl": "https://www.example.com/video6.mp4",
+      "watched": false,
+      "notes": "El paciente mostró interés genuino en las prácticas de mindfulness. Se recomienda continuar con meditaciones guiadas diarias."
+    }
+  ]
+}

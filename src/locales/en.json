@@ -1,0 +1,16 @@
+{
+  "greeting": "Welcome back!",
+  "welcomeMessage": "Manage your psychological appointments",
+  "noPackage": "You don't have any active package",
+  "packageMessage": "Activate a plan today and save up to 10% on your next appointments.",
+  "ctaButton": "Explore Packages",
+  "subscriptions": "SUBSCRIPTIONS",
+  "schedule": "SCHEDULE",
+  "tasks": "TASKS",
+  "content": "CONTENT",
+  "scheduleTitle": "How to schedule your appointment?",
+  "step1": "Choose your psychologist",
+  "step2": "Select date and time",
+  "step3": "Confirm your appointment",
+  "choosePsychologist": "Choose Psychologist"
+}
