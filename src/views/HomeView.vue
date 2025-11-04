@@ -128,15 +128,17 @@ const cards = [
 </template>
 <style scoped>
 .home-container {
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 2rem;
-  animation: fadeIn 0.5s ease;
+  padding: 3rem 2rem;
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e8f4f8 100%);
 }
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -155,19 +157,21 @@ const cards = [
   flex: 1;
 }
 .welcome-title {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 3.5rem;
+  font-weight: 800;
   color: #1a202c;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.75rem 0;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: -1px;
 }
 .welcome-subtitle {
-  font-size: 1.1rem;
-  color: #718096;
+  font-size: 1.3rem;
+  color: #64748b;
   margin: 0;
+  font-weight: 500;
 }
 /* Language Switcher */
 .language-switcher {
@@ -259,14 +263,14 @@ const cards = [
 }
 .dashboard-card {
   background: white;
-  border-radius: 20px;
-  padding: 2rem;
+  border-radius: 24px;
+  padding: 2.5rem;
   text-decoration: none;
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 2px solid transparent;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 2px solid rgba(102, 126, 234, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
 }
 .dashboard-card::before {
   content: '';
@@ -314,8 +318,8 @@ const cards = [
   color: #43e97b;
 }
 .dashboard-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
 }
 .dashboard-card:hover::before {
   opacity: 0.05;

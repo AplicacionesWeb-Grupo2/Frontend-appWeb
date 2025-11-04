@@ -437,16 +437,18 @@ const changeLanguage = (lang) => {
 
 <style scoped>
 .agenda-container {
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 2rem;
-  animation: fadeIn 0.5s ease;
+  padding: 3rem 2rem;
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e8f4f8 100%);
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -461,6 +463,11 @@ const changeLanguage = (lang) => {
   margin-bottom: 3rem;
   gap: 2rem;
   flex-wrap: wrap;
+  background: white;
+  padding: 2rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
 .header-content {
@@ -468,16 +475,21 @@ const changeLanguage = (lang) => {
 }
 
 .page-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1a202c;
-  margin: 0 0 0.5rem 0;
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.5px;
 }
 
 .page-subtitle {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: #64748b;
   margin: 0;
+  font-weight: 500;
 }
 
 .header-actions {
@@ -506,28 +518,50 @@ const changeLanguage = (lang) => {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 12px;
+  padding: 1.125rem 2.5rem;
+  border-radius: 16px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.05rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-new-appointment::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-new-appointment:hover::before {
+  left: 100%;
 }
 
 .btn-new-appointment:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(102, 126, 234, 0.45);
+}
+
+.btn-new-appointment:active {
+  transform: translateY(-1px);
 }
 
 .appointments-section {
   background: white;
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
 .section-title {
@@ -596,17 +630,35 @@ const changeLanguage = (lang) => {
 }
 
 .appointment-card {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border: 2px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
+  background: white;
+  border: 2px solid #e8f0fe;
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.appointment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.appointment-card:hover::before {
+  opacity: 1;
 }
 
 .appointment-card:hover {
   border-color: #667eea;
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.1);
-  transform: translateY(-2px);
+  box-shadow: 0 16px 48px rgba(102, 126, 234, 0.15);
+  transform: translateY(-4px);
 }
 
 .appointment-header {
