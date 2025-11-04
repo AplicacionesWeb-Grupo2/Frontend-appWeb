@@ -276,9 +276,7 @@ const cards = [
   transition: opacity 0.4s ease;
 }
 /* Colores específicos para cada tarjeta */
-.card-0 {
-  /* Subscriptions - Purple */
-}
+
 .card-0::before {
   background: linear-gradient(135deg, #667eea 0%, transparent 100%);
 }
@@ -287,9 +285,6 @@ const cards = [
 }
 .card-0 .card-arrow {
   color: #667eea;
-}
-.card-1 {
-  /* Schedule - Pink */
 }
 .card-1::before {
   background: linear-gradient(135deg, #f093fb 0%, transparent 100%);
@@ -300,9 +295,6 @@ const cards = [
 .card-1 .card-arrow {
   color: #f093fb;
 }
-.card-2 {
-  /* Tasks - Cyan */
-}
 .card-2::before {
   background: linear-gradient(135deg, #4facfe 0%, transparent 100%);
 }
@@ -311,9 +303,6 @@ const cards = [
 }
 .card-2 .card-arrow {
   color: #4facfe;
-}
-.card-3 {
-  /* Content - Green */
 }
 .card-3::before {
   background: linear-gradient(135deg, #43e97b 0%, transparent 100%);
@@ -325,7 +314,7 @@ const cards = [
   color: #43e97b;
 }
 .dashboard-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-2px);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
 }
 .dashboard-card:hover::before {
@@ -401,7 +390,7 @@ const cards = [
   transition: all 0.3s ease;
 }
 .step-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(56, 189, 248, 0.3);
 }
 .step-number {
@@ -447,7 +436,7 @@ const cards = [
   letter-spacing: 0.5px;
 }
 .cta-button:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(14, 165, 233, 0.4);
 }
 /* Responsive Design */

@@ -190,7 +190,7 @@ const selectPsychologist = (psychologist) => {
 }
 
 .psychologist-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-2px);
   border-color: #667eea;
   box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
 }

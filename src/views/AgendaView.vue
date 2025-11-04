@@ -37,7 +37,7 @@ const loadPsychologists = async () => {
     const response = await axios.get(`${API_URL}/psychologists`);
     psychologists.value = response.data;
   } catch (error) {
-    console.error('Error cargando psicólogos:', error);
+    console.error(t('errorLoadingPsychologists'), error);
   }
 };
 
@@ -46,7 +46,7 @@ const loadAppointments = async () => {
     const response = await axios.get(`${API_URL}/appointments`);
     appointments.value = response.data;
   } catch (error) {
-    console.error('Error cargando citas:', error);
+    console.error(t('errorLoadingAppointments'), error);
   }
 };
 
@@ -88,7 +88,7 @@ const closeModal = () => {
 
 const confirmAppointment = async () => {
   if (!newAppointment.value.psychologistId || !newAppointment.value.date || !newAppointment.value.time) {
-    alert('Por favor completa todos los campos obligatorios');
+    alert(t('fillRequiredFields'));
     return;
   }
 
@@ -105,28 +105,28 @@ const confirmAppointment = async () => {
     };
 
     await axios.post(`${API_URL}/appointments`, appointmentData);
-    alert('¡Cita agendada exitosamente!');
+    alert(t('appointmentScheduled'));
     await loadAppointments();
     closeModal();
   } catch (error) {
-    console.error('Error al agendar cita:', error);
-    alert('Error al agendar la cita. Intenta de nuevo.');
+    console.error(t('errorSchedulingAppointment'), error);
+    alert(t('appointmentScheduleError'));
   }
 };
 
 // NUEVA FUNCIÓN: Eliminar cita
 const deleteAppointment = async (appointmentId) => {
-  if (!confirm('¿Estás seguro de que deseas cancelar esta cita?')) {
+  if (!confirm(t('cancelAppointmentConfirm'))) {
     return;
   }
 
   try {
     await axios.delete(`${API_URL}/appointments/${appointmentId}`);
-    alert('Cita cancelada exitosamente');
+    alert(t('appointmentCanceled'));
     await loadAppointments();
   } catch (error) {
-    console.error('Error al cancelar cita:', error);
-    alert('Error al cancelar la cita. Intenta de nuevo.');
+    console.error(t('errorCancelingAppointment'), error);
+    alert(t('appointmentCancelError'));
   }
 };
 
@@ -145,26 +145,26 @@ const closeEditModal = () => {
 // NUEVA FUNCIÓN: Guardar cambios de edición
 const saveEditedAppointment = async () => {
   if (!editingAppointment.value.date || !editingAppointment.value.time) {
-    alert('Por favor completa todos los campos obligatorios');
+    alert(t('fillRequiredFields'));
     return;
   }
 
   try {
     await axios.put(`${API_URL}/appointments/${editingAppointment.value.id}`, editingAppointment.value);
-    alert('Cita modificada exitosamente');
+    alert(t('appointmentModified'));
     await loadAppointments();
     closeEditModal();
   } catch (error) {
-    console.error('Error al modificar cita:', error);
-    alert('Error al modificar la cita. Intenta de nuevo.');
+    console.error(t('errorModifyingAppointment'), error);
+    alert(t('appointmentModifyError'));
   }
 };
 
 const formatDate = (dateString) => {
-  if (!dateString || dateString === 'Invalid Date') return 'Fecha no disponible';
+  if (!dateString || dateString === 'Invalid Date') return t('dateNotAvailable');
   const date = new Date(dateString);
-  if (isNaN(date.getTime())) return 'Fecha inválida';
-  return date.toLocaleDateString('es-ES', {
+  if (isNaN(date.getTime())) return t('invalidDate');
+  return date.toLocaleDateString(locale.value === 'es' ? 'es-ES' : 'en-US', {
     day: '2-digit',
     month: 'long',
     year: 'numeric'
@@ -181,19 +181,19 @@ const changeLanguage = (lang) => {
     <!-- Header -->
     <div class="agenda-header">
       <div class="header-content">
-        <h1 class="page-title">Mi Agenda</h1>
-        <p class="page-subtitle">Gestiona tus citas con psicólogos profesionales</p>
+        <h1 class="page-title">{{ t('mySchedule') }}</h1>
+        <p class="page-subtitle">{{ t('manageAppointments') }}</p>
       </div>
 
       <div class="header-actions">
         <select :value="locale" @change="changeLanguage($event.target.value)" class="lang-select">
-          <option value="es">Español</option>
-          <option value="en">English</option>
+          <option value="es">{{ t('spanish') }}</option>
+          <option value="en">{{ t('english') }}</option>
         </select>
 
         <button @click="openModal" class="btn-new-appointment">
           <i class="pi pi-plus"></i>
-          <span>Agendar nueva cita</span>
+          <span>{{ t('scheduleNewAppointment') }}</span>
         </button>
       </div>
     </div>
@@ -202,16 +202,16 @@ const changeLanguage = (lang) => {
     <div class="appointments-section">
       <h2 class="section-title">
         <i class="pi pi-calendar"></i>
-        Próximas citas
+        {{ t('upcomingAppointments') }}
       </h2>
 
       <div v-if="appointments.length === 0" class="empty-state">
         <i class="pi pi-calendar"></i>
-        <h3>No tienes citas programadas</h3>
-        <p>Agenda tu primera cita con un psicólogo</p>
+        <h3>{{ t('noAppointments') }}</h3>
+        <p>{{ t('scheduleFirstAppointment') }}</p>
         <button @click="openModal" class="btn-empty-state">
           <i class="pi pi-plus"></i>
-          Agendar cita
+          {{ t('scheduleAppointment') }}
         </button>
       </div>
 
@@ -227,7 +227,7 @@ const changeLanguage = (lang) => {
           </div>
             <div class="appointment-info">
               <h3>{{ appointment.psychologistName }}</h3>
-              <span class="status-badge confirmed">Confirmada</span>
+              <span class="status-badge confirmed">{{ t('confirmed') }}</span>
             </div>
           </div>
 
@@ -249,11 +249,11 @@ const changeLanguage = (lang) => {
           <div class="appointment-actions">
             <button @click="openEditModal(appointment)" class="btn-action">
               <i class="pi pi-pencil"></i>
-              Modificar
+              {{ t('modify') }}
             </button>
             <button @click="deleteAppointment(appointment.id)" class="btn-action danger">
               <i class="pi pi-trash"></i>
-              Cancelar
+              {{ t('cancel') }}
             </button>
           </div>
         </div>
@@ -267,7 +267,7 @@ const changeLanguage = (lang) => {
           <div class="modal-header">
             <div class="modal-title-section">
               <i class="pi pi-calendar"></i>
-              <h2>Agendar nueva cita</h2>
+              <h2>{{ t('scheduleNewAppointment') }}</h2>
             </div>
             <button @click="closeModal" class="close-btn">
               <i class="pi pi-times"></i>
@@ -278,10 +278,10 @@ const changeLanguage = (lang) => {
             <div class="form-group">
               <label class="form-label">
                 <i class="pi pi-user"></i>
-                Selecciona tu psicólogo
+                {{ t('selectPsychologist') }}
               </label>
               <select v-model="newAppointment.psychologistId" class="form-select">
-                <option :value="null" disabled>Elige un psicólogo...</option>
+                <option :value="null" disabled>{{ t('choosePsychologistPlaceholder') }}</option>
                 <option
                     v-for="psych in psychologists"
                     :key="psych.id"
@@ -295,10 +295,10 @@ const changeLanguage = (lang) => {
             <div v-if="selectedPsychologist" class="form-group">
               <label class="form-label">
                 <i class="pi pi-calendar"></i>
-                Fecha
+                {{ t('date') }}
               </label>
               <select v-model="newAppointment.date" class="form-select">
-                <option value="" disabled>Selecciona una fecha...</option>
+                <option value="" disabled>{{ t('selectDate') }}</option>
                 <option
                     v-for="schedule in availableDates"
                     :key="schedule.fecha"
@@ -312,7 +312,7 @@ const changeLanguage = (lang) => {
             <div v-if="newAppointment.date" class="form-group">
               <label class="form-label">
                 <i class="pi pi-clock"></i>
-                Hora
+                {{ t('time') }}
               </label>
               <div class="time-grid">
                 <button
@@ -331,12 +331,12 @@ const changeLanguage = (lang) => {
             <div class="form-group">
               <label class="form-label">
                 <i class="pi pi-file-edit"></i>
-                Notas (opcional)
+                {{ t('notesOptional') }}
               </label>
               <textarea
                   v-model="newAppointment.notes"
                   class="form-textarea"
-                  placeholder="Agrega notas sobre la consulta..."
+                  :placeholder="t('notesPlaceholder')"
                   rows="4"
               ></textarea>
             </div>
@@ -344,11 +344,11 @@ const changeLanguage = (lang) => {
 
           <div class="modal-footer">
             <button @click="closeModal" class="btn-cancel">
-              Cancelar
+              {{ t('cancel') }}
             </button>
             <button @click="confirmAppointment" class="btn-confirm">
               <i class="pi pi-check"></i>
-              Confirmar cita
+              {{ t('confirmAppointment') }}
             </button>
           </div>
         </div>
@@ -362,7 +362,7 @@ const changeLanguage = (lang) => {
           <div class="modal-header">
             <div class="modal-title-section">
               <i class="pi pi-pencil"></i>
-              <h2>Modificar cita</h2>
+              <h2>{{ t('modifyAppointment') }}</h2>
             </div>
             <button @click="closeEditModal" class="close-btn">
               <i class="pi pi-times"></i>
@@ -373,7 +373,7 @@ const changeLanguage = (lang) => {
             <div class="form-group">
               <label class="form-label">
                 <i class="pi pi-user"></i>
-                Psicólogo
+                {{ t('psychologist') }}
               </label>
               <input
                   :value="editingAppointment.psychologistName"
@@ -386,7 +386,7 @@ const changeLanguage = (lang) => {
             <div class="form-group">
               <label class="form-label">
                 <i class="pi pi-calendar"></i>
-                Nueva fecha
+                {{ t('newDate') }}
               </label>
               <input
                   v-model="editingAppointment.date"
@@ -398,7 +398,7 @@ const changeLanguage = (lang) => {
             <div class="form-group">
               <label class="form-label">
                 <i class="pi pi-clock"></i>
-                Nueva hora
+                {{ t('newTime') }}
               </label>
               <input
                   v-model="editingAppointment.time"
@@ -410,12 +410,12 @@ const changeLanguage = (lang) => {
             <div class="form-group">
               <label class="form-label">
                 <i class="pi pi-file-edit"></i>
-                Notas
+                {{ t('notes') }}
               </label>
               <textarea
                   v-model="editingAppointment.notes"
                   class="form-textarea"
-                  placeholder="Agrega notas sobre la consulta..."
+                  :placeholder="t('notesPlaceholder')"
                   rows="4"
               ></textarea>
             </div>
@@ -423,11 +423,11 @@ const changeLanguage = (lang) => {
 
           <div class="modal-footer">
             <button @click="closeEditModal" class="btn-cancel">
-              Cancelar
+              {{ t('cancel') }}
             </button>
             <button @click="saveEditedAppointment" class="btn-confirm">
               <i class="pi pi-check"></i>
-              Guardar cambios
+              {{ t('saveChanges') }}
             </button>
           </div>
         </div>
@@ -607,7 +607,7 @@ const changeLanguage = (lang) => {
 .appointment-card:hover {
   border-color: #667eea;
   box-shadow: 0 8px 20px rgba(102, 126, 234, 0.1);
-  transform: translateY(-4px);
+  transform: translateY(-2px);
 }
 
 .appointment-header {

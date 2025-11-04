@@ -13,68 +13,58 @@ const showCheckoutModal = ref(false);
 const plans = [
   {
     id: 'basic',
-    name: 'Básico',
-    nameEn: 'Basic',
-    description: 'Perfecto para comenzar tu viaje de bienestar mental',
-    descriptionEn: 'Perfect to start your mental wellness journey',
+    name: t('basic'),
     monthlyPrice: 29,
     annualPrice: 290,
     color: '#667eea',
     gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     icon: '🌱',
     features: [
-      { es: '1 sesión mensual de 60 minutos', en: '1 monthly 60-minute session', included: true },
-      { es: 'Mensajería con tu psicólogo', en: 'Messaging with your psychologist', included: true },
-      { es: 'Acceso a recursos educativos', en: 'Access to educational resources', included: true },
-      { es: 'Sesiones grupales', en: 'Group sessions', included: false },
-      { es: 'Cambio ilimitado de psicólogo', en: 'Unlimited psychologist switching', included: false },
-      { es: 'Soporte prioritario 24/7', en: 'Priority 24/7 support', included: false }
+      { key: 'oneSessionMonthly', included: true },
+      { key: 'messagingPsychologist', included: true },
+      { key: 'accessEducationalResources', included: true },
+      { key: 'groupSessions', included: false },
+      { key: 'unlimitedPsychologistSwitch', included: false },
+      { key: 'prioritySupport', included: false }
     ],
     badge: null,
     popular: false
   },
   {
     id: 'standard',
-    name: 'Estándar',
-    nameEn: 'Standard',
-    description: 'Para quienes buscan apoyo continuo y estructurado',
-    descriptionEn: 'For those seeking continuous and structured support',
+    name: t('standard'),
     monthlyPrice: 59,
     annualPrice: 590,
     color: '#f093fb',
     gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
     icon: '⭐',
     features: [
-      { es: '4 sesiones mensuales de 60 minutos', en: '4 monthly 60-minute sessions', included: true },
-      { es: 'Mensajería ilimitada', en: 'Unlimited messaging', included: true },
-      { es: 'Acceso a recursos educativos', en: 'Access to educational resources', included: true },
-      { es: '2 sesiones grupales al mes', en: '2 monthly group sessions', included: true },
-      { es: 'Cambio de psicólogo sin costo', en: 'Free psychologist switching', included: true },
-      { es: 'Soporte prioritario 24/7', en: 'Priority 24/7 support', included: false }
+      { key: 'fourSessionsMonthly', included: true },
+      { key: 'unlimitedMessaging', included: true },
+      { key: 'accessEducationalResources', included: true },
+      { key: 'twoGroupSessionsMonthly', included: true },
+      { key: 'freePsychologistSwitch', included: true },
+      { key: 'prioritySupport', included: false }
     ],
-    badge: 'Más Popular',
-    badgeEn: 'Most Popular',
+    badge: t('mostPopular'),
     popular: true
   },
   {
     id: 'premium',
-    name: 'Premium',
-    nameEn: 'Premium',
-    description: 'Máximo apoyo con atención personalizada integral',
-    descriptionEn: 'Maximum support with comprehensive personalized care',
+    name: t('premium'),
     monthlyPrice: 99,
     annualPrice: 990,
     color: '#4facfe',
     gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
     icon: '💎',
     features: [
-      { es: 'Sesiones ilimitadas de 60 minutos', en: 'Unlimited 60-minute sessions', included: true },
-      { es: 'Mensajería ilimitada', en: 'Unlimited messaging', included: true },
-      { es: 'Acceso completo a recursos', en: 'Full access to resources', included: true },
-      { es: 'Sesiones grupales ilimitadas', en: 'Unlimited group sessions', included: true },
-      { es: 'Cambio ilimitado de psicólogo', en: 'Unlimited psychologist switching', included: true },
-      { es: 'Soporte prioritario 24/7', en: 'Priority 24/7 support', included: true },
-      { es: 'Plan de bienestar personalizado', en: 'Personalized wellness plan', included: true }
+      { key: 'unlimitedSessions', included: true },
+      { key: 'unlimitedMessaging', included: true },
+      { key: 'fullAccessResources', included: true },
+      { key: 'unlimitedGroupSessions', included: true },
+      { key: 'unlimitedPsychologistSwitch', included: true },
+      { key: 'prioritySupport', included: true },
+      { key: 'personalizedWellnessPlan', included: true }
     ],
     badge: null,
     popular: false
@@ -102,7 +92,7 @@ const closeModal = () => {
 };
 
 const processPurchase = () => {
-  alert(`¡Suscripción al plan ${selectedPlan.value.name} procesada exitosamente!`);
+  alert(t('subscriptionProcessed', { planName: selectedPlan.value.name }));
   closeModal();
   router.push('/');
 };
@@ -116,9 +106,9 @@ const changeLanguage = (lang) => {
   <div class="subscriptions-container">
     <div class="header-section">
       <div class="header-content">
-        <h1 class="main-title">Elige el plan perfecto para ti</h1>
+        <h1 class="main-title">{{ t('chooseYourPlan') }}</h1>
         <p class="main-subtitle">
-          Comienza tu viaje hacia el bienestar mental con el apoyo profesional que mereces
+          {{ t('mentalWellnessJourney') }}
         </p>
       </div>
 
@@ -128,22 +118,22 @@ const changeLanguage = (lang) => {
             :class="{ active: billingCycle === 'monthly' }"
             class="toggle-btn"
         >
-          Mensual
+          {{ t('monthly') }}
         </button>
         <button
             @click="billingCycle = 'annual'"
             :class="{ active: billingCycle === 'annual' }"
             class="toggle-btn"
         >
-          Anual
-          <span class="save-badge">Ahorra 20%</span>
+          {{ t('annual') }}
+          <span class="save-badge">{{ t('save20') }}</span>
         </button>
       </div>
 
       <div class="language-selector">
         <select :value="locale" @change="changeLanguage($event.target.value)" class="lang-select">
-          <option value="es">Español</option>
-          <option value="en">English</option>
+          <option value="es">{{ t('spanish') }}</option>
+          <option value="en">{{ t('english') }}</option>
         </select>
       </div>
     </div>
@@ -157,16 +147,16 @@ const changeLanguage = (lang) => {
       >
         <div v-if="plan.popular" class="popular-badge">
           <i class="pi pi-star-fill"></i>
-          {{ locale === 'es' ? plan.badge : plan.badgeEn }}
+          {{ plan.badge }}
         </div>
 
         <div class="card-header">
           <div class="plan-icon" :style="{ background: plan.gradient }">
             {{ plan.icon }}
           </div>
-          <h3 class="plan-name">{{ locale === 'es' ? plan.name : plan.nameEn }}</h3>
+          <h3 class="plan-name">{{ plan.name }}</h3>
           <p class="plan-description">
-            {{ locale === 'es' ? plan.description : plan.descriptionEn }}
+            {{ t(plan.id === 'basic' ? 'perfectToStart' : plan.id === 'standard' ? 'continuousSupport' : 'maximumSupport') }}
           </p>
         </div>
 
@@ -174,13 +164,13 @@ const changeLanguage = (lang) => {
           <div class="price-wrapper">
             <span class="currency">$</span>
             <span class="price">{{ getPrice(plan) }}</span>
-            <span class="period">/mes</span>
+            <span class="period">{{ t('perMonth') }}</span>
           </div>
           <div v-if="billingCycle === 'annual'" class="savings-text">
-            Ahorra {{ getSavings(plan) }}% anualmente
+            {{ t('saveAnnually', { percent: getSavings(plan) }) }}
           </div>
           <div v-else class="billing-text">
-            Facturado mensualmente
+            {{ t('billedMonthly') }}
           </div>
         </div>
 
@@ -192,7 +182,7 @@ const changeLanguage = (lang) => {
               class="feature-item"
           >
             <i :class="feature.included ? 'pi pi-check-circle' : 'pi pi-times-circle'" class="feature-icon"></i>
-            <span>{{ locale === 'es' ? feature.es : feature.en }}</span>
+            <span>{{ t(feature.key) }}</span>
           </li>
         </ul>
 
@@ -201,7 +191,7 @@ const changeLanguage = (lang) => {
             :style="plan.popular ? { background: plan.gradient } : {}"
             class="cta-button"
         >
-          <span>Elegir plan</span>
+          <span>{{ t('choosePlan') }}</span>
           <i class="pi pi-arrow-right"></i>
         </button>
       </div>
@@ -210,44 +200,44 @@ const changeLanguage = (lang) => {
     <div class="trust-section">
       <div class="trust-card">
         <i class="pi pi-shield"></i>
-        <h4>100% Seguro</h4>
-        <p>Tus datos están protegidos con encriptación de nivel bancario</p>
+        <h4>{{ t('securePayment') }}</h4>
+        <p>{{ t('dataProtected') }}</p>
       </div>
       <div class="trust-card">
         <i class="pi pi-refresh"></i>
-        <h4>Cancela cuando quieras</h4>
-        <p>Sin compromisos a largo plazo ni penalizaciones</p>
+        <h4>{{ t('cancelAnytime') }}</h4>
+        <p>{{ t('noCommitments') }}</p>
       </div>
       <div class="trust-card">
         <i class="pi pi-verified"></i>
-        <h4>Psicólogos certificados</h4>
-        <p>Todos nuestros profesionales están debidamente acreditados</p>
+        <h4>{{ t('certifiedPsychologists') }}</h4>
+        <p>{{ t('accreditedProfessionals') }}</p>
       </div>
       <div class="trust-card">
         <i class="pi pi-clock"></i>
-        <h4>Soporte 24/7</h4>
-        <p>Estamos aquí para ayudarte cuando nos necesites</p>
+        <h4>{{ t('support247') }}</h4>
+        <p>{{ t('hereToHelp') }}</p>
       </div>
     </div>
 
     <div class="faq-section">
-      <h2 class="faq-title">Preguntas Frecuentes</h2>
+      <h2 class="faq-title">{{ t('frequentQuestions') }}</h2>
       <div class="faq-grid">
         <div class="faq-item">
-          <h3>¿Puedo cambiar de plan después?</h3>
-          <p>Sí, puedes actualizar o cambiar tu plan en cualquier momento desde tu panel de usuario.</p>
+          <h3>{{ t('canChangePlan') }}</h3>
+          <p>{{ t('canChangePlanAnswer') }}</p>
         </div>
         <div class="faq-item">
-          <h3>¿Cómo funciona la garantía?</h3>
-          <p>Ofrecemos garantía de satisfacción. Si no estás contento en los primeros 7 días, te devolvemos tu dinero.</p>
+          <h3>{{ t('howGuaranteeWorks') }}</h3>
+          <p>{{ t('howGuaranteeWorksAnswer') }}</p>
         </div>
         <div class="faq-item">
-          <h3>¿Puedo cambiar de psicólogo?</h3>
-          <p>Por supuesto. Queremos que te sientas cómodo, así que puedes cambiar sin costo adicional.</p>
+          <h3>{{ t('canChangePsychologist') }}</h3>
+          <p>{{ t('canChangePsychologistAnswer') }}</p>
         </div>
         <div class="faq-item">
-          <h3>¿Aceptan seguros médicos?</h3>
-          <p>Actualmente trabajamos con varios proveedores de seguros. Contáctanos para verificar el tuyo.</p>
+          <h3>{{ t('acceptInsurance') }}</h3>
+          <p>{{ t('acceptInsuranceAnswer') }}</p>
         </div>
       </div>
     </div>
@@ -256,7 +246,7 @@ const changeLanguage = (lang) => {
       <div v-if="showCheckoutModal" class="modal-overlay" @click.self="closeModal">
         <div class="checkout-modal">
           <div class="modal-header">
-            <h2>Confirma tu suscripción</h2>
+            <h2>{{ t('confirmSubscription') }}</h2>
             <button @click="closeModal" class="close-btn">
               <i class="pi pi-times"></i>
             </button>
@@ -268,26 +258,26 @@ const changeLanguage = (lang) => {
                 {{ selectedPlan.icon }}
               </div>
               <div class="summary-details">
-                <h3>{{ locale === 'es' ? selectedPlan.name : selectedPlan.nameEn }}</h3>
-                <p>{{ locale === 'es' ? selectedPlan.description : selectedPlan.descriptionEn }}</p>
+                <h3>{{ selectedPlan.name }}</h3>
+                <p>{{ t(selectedPlan.id === 'basic' ? 'perfectToStart' : selectedPlan.id === 'standard' ? 'continuousSupport' : 'maximumSupport') }}</p>
               </div>
             </div>
 
             <div class="price-breakdown">
               <div class="breakdown-row">
-                <span>Plan {{ locale === 'es' ? selectedPlan.name : selectedPlan.nameEn }}</span>
+                <span>{{ t('plan') }} {{ selectedPlan.name }}</span>
                 <span class="price-amount">
                   ${{ billingCycle === 'monthly' ? selectedPlan.monthlyPrice : selectedPlan.annualPrice }}
                 </span>
               </div>
               <div v-if="billingCycle === 'annual'" class="breakdown-row savings">
-                <span>Descuento anual ({{ getSavings(selectedPlan) }}%)</span>
+                <span>{{ t('annualDiscount', { percent: getSavings(selectedPlan) }) }}</span>
                 <span class="price-amount">
                   -${{ (selectedPlan.monthlyPrice * 12) - selectedPlan.annualPrice }}
                 </span>
               </div>
               <div class="breakdown-row total">
-                <span>Total {{ billingCycle === 'monthly' ? 'mensual' : 'anual' }}</span>
+                <span>{{ t('total') }} {{ billingCycle === 'monthly' ? t('monthly_lowercase') : t('annual_lowercase') }}</span>
                 <span class="price-amount">
                   ${{ billingCycle === 'monthly' ? selectedPlan.monthlyPrice : selectedPlan.annualPrice }}
                 </span>
@@ -297,18 +287,18 @@ const changeLanguage = (lang) => {
             <div class="payment-info">
               <p class="info-text">
                 <i class="pi pi-info-circle"></i>
-                Serás redirigido a nuestra pasarela de pago segura
+                {{ t('redirectToPayment') }}
               </p>
             </div>
           </div>
 
           <div class="modal-footer">
             <button @click="closeModal" class="btn-secondary">
-              Cancelar
+              {{ t('cancel') }}
             </button>
             <button @click="processPurchase" class="btn-primary">
               <i class="pi pi-lock"></i>
-              Proceder al pago
+              {{ t('proceedToPayment') }}
             </button>
           </div>
         </div>
@@ -454,7 +444,7 @@ const changeLanguage = (lang) => {
 }
 
 .pricing-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-2px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
   border-color: #667eea;
 }

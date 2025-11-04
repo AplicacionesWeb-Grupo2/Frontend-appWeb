@@ -20,7 +20,7 @@ const loadPsychologists = async () => {
     const response = await axios.get(`${API_URL}/psychologists`);
     psychologists.value = response.data;
   } catch (error) {
-    console.error('Error cargando psicólogos:', error);
+    console.error(t('errorLoadingPsychologists'), error);
   } finally {
     loading.value = false;
   }
@@ -40,15 +40,15 @@ const selectPsychologist = (psychologist) => {
 <template>
   <div class="psychologists-list-container">
     <div class="header">
-      <h1 class="page-title">Elige a tu psicólogo</h1>
+      <h1 class="page-title">{{ t('chooseYourPsychologist') }}</h1>
       <p class="page-subtitle">
-        Selecciona al profesional que mejor se adapte a tus necesidades
+        {{ t('selectProfessional') }}
       </p>
     </div>
 
     <div v-if="loading" class="loading-state">
       <i class="pi pi-spin pi-spinner"></i>
-      <p>Cargando psicólogos...</p>
+      <p>{{ t('loadingPsychologists') }}</p>
     </div>
 
     <div v-else class="psychologists-grid">
@@ -76,7 +76,7 @@ const selectPsychologist = (psychologist) => {
             <div v-if="psych.proximosHorarios && psych.proximosHorarios.length > 0" class="availability">
               <span class="availability-label">
                 <i class="pi pi-clock"></i>
-                Próxima disponibilidad:
+                {{ t('nextAvailability') }}
               </span>
               <div class="next-slots">
                 <span
@@ -99,7 +99,7 @@ const selectPsychologist = (psychologist) => {
             @click="selectPsychologist(psych)"
             class="select-button"
         >
-          <span>Elegir psicólogo</span>
+          <span>{{ t('choosePsychologist') }}</span>
           <i class="pi pi-arrow-right"></i>
         </button>
       </div>
@@ -107,8 +107,8 @@ const selectPsychologist = (psychologist) => {
 
     <div v-if="!loading && psychologists.length === 0" class="empty-state">
       <i class="pi pi-users"></i>
-      <h3>No hay psicólogos disponibles</h3>
-      <p>Por favor, intenta más tarde</p>
+      <h3>{{ t('noPsychologists') }}</h3>
+      <p>{{ t('tryLater') }}</p>
     </div>
   </div>
 </template>
@@ -190,7 +190,7 @@ const selectPsychologist = (psychologist) => {
 }
 
 .psychologist-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-2px);
   border-color: #667eea;
   box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
 }

@@ -12,52 +12,52 @@
         </div>
 
         <div class="no-account">
-          <p>No tienes cuenta?</p>
-          <a href="#" class="register-link">Regístrate ahora</a>
+          <p>{{ t('noAccount') }}</p>
+          <a href="#" class="register-link">{{ t('registerNow') }}</a>
         </div>
       </div>
 
       <div class="login-section">
-        <h2>Iniciar sesión con</h2>
+        <h2>{{ t('loginWith') }}</h2>
 
         <div class="social-buttons">
           <button class="social-btn facebook-btn" disabled>
             <i class="pi pi-facebook"></i>
-            <span>Facebook</span>
+            <span>{{ t('facebook') }}</span>
             <i class="pi pi-chevron-right"></i>
           </button>
 
           <button class="social-btn google-btn" disabled>
             <i class="pi pi-google"></i>
-            <span>Google</span>
+            <span>{{ t('google') }}</span>
             <i class="pi pi-chevron-right"></i>
           </button>
         </div>
 
         <div class="divider">
-          <span>O</span>
+          <span>{{ t('or') }}</span>
         </div>
 
         <form @submit.prevent="handleLogin" class="login-form">
           <div class="form-group">
-            <label for="email">Correo electrónico</label>
+            <label for="email">{{ t('email') }}</label>
             <input
                 id="email"
                 v-model="email"
                 type="email"
-                placeholder="Escriba su correo electronico"
+                :placeholder="t('emailPlaceholder')"
                 required
             />
           </div>
 
           <div class="form-group">
-            <label for="password">Contraseña</label>
+            <label for="password">{{ t('password') }}</label>
             <div class="password-input">
               <input
                   id="password"
                   v-model="password"
                   :type="showPassword ? 'text' : 'password'"
-                  placeholder="Escriba su contraseña"
+                  :placeholder="t('passwordPlaceholder')"
                   required
               />
               <button
@@ -71,7 +71,7 @@
           </div>
 
           <div class="forgot-password">
-            <a href="#">¿olvidaste tu contraseña?</a>
+            <a href="#">{{ t('forgotPassword') }}</a>
           </div>
 
           <div v-if="errorMessage" class="error-message">
@@ -79,7 +79,7 @@
           </div>
 
           <button type="submit" class="login-btn" :disabled="loading">
-            {{ loading ? 'Iniciando sesión...' : 'iniciar sesión' }}
+            {{ loading ? t('loggingIn') : t('login') }}
           </button>
         </form>
       </div>
@@ -90,8 +90,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { authService } from '../services/authService';
 
+const { t } = useI18n();
 const router = useRouter();
 
 const email = ref('');
@@ -110,10 +112,10 @@ const handleLogin = async () => {
     if (success) {
       router.push('/');
     } else {
-      errorMessage.value = 'Credenciales incorrectas';
+      errorMessage.value = t('incorrectCredentials');
     }
   } catch (error) {
-    errorMessage.value = 'Error al iniciar sesión. Intenta de nuevo.';
+    errorMessage.value = t('loginError');
   } finally {
     loading.value = false;
   }
