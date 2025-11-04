@@ -35,6 +35,13 @@ const selectPsychologist = (psychologist) => {
     }
   });
 };
+
+const viewProfile = (psychologist) => {
+  router.push({
+    name: 'PsychologistProfile',
+    params: { id: psychologist.id }
+  });
+};
 </script>
 
 <template>
@@ -95,13 +102,22 @@ const selectPsychologist = (psychologist) => {
           </div>
         </div>
 
-        <button
-            @click="selectPsychologist(psych)"
-            class="select-button"
-        >
-          <span>{{ t('choosePsychologist') }}</span>
-          <i class="pi pi-arrow-right"></i>
-        </button>
+        <div class="card-actions">
+          <button
+              @click="viewProfile(psych)"
+              class="view-profile-button"
+          >
+            <i class="pi pi-user"></i>
+            <span>{{ t('viewProfile') }}</span>
+          </button>
+          <button
+              @click="selectPsychologist(psych)"
+              class="select-button"
+          >
+            <span>{{ t('choosePsychologist') }}</span>
+            <i class="pi pi-arrow-right"></i>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -303,27 +319,55 @@ const selectPsychologist = (psychologist) => {
   text-align: left;
 }
 
-.select-button {
-  width: 100%;
-  padding: 1.25rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
+.card-actions {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.view-profile-button {
+  flex: 1;
+  padding: 1rem;
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 0 0 0 18px;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  gap: 0.5rem;
+}
+
+.view-profile-button:hover {
+  background: rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+}
+
+.select-button {
+  flex: 1;
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 0 0 18px 0;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .select-button:hover {
   background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
   box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
 }
 
 .empty-state {

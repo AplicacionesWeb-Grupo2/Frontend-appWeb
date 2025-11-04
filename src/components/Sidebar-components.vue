@@ -79,7 +79,7 @@ const isActive = (routePath) => {
       </div>
     </div>
 
-    <div class="user-profile" :class="{ collapsed: isCollapsed }">
+    <router-link to="/perfil" class="user-profile" :class="{ collapsed: isCollapsed }">
       <div class="user-avatar">
         <i class="pi pi-user"></i>
       </div>
@@ -89,7 +89,10 @@ const isActive = (routePath) => {
           <p class="user-role">Paciente</p>
         </div>
       </transition>
-    </div>
+      <transition name="fade">
+        <i v-if="!isCollapsed" class="pi pi-chevron-right profile-arrow"></i>
+      </transition>
+    </router-link>
 
     <nav class="sidebar-nav">
       <router-link
@@ -248,11 +251,23 @@ const isActive = (routePath) => {
   border-bottom: 1px solid #e2e8f0;
   background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
   transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.user-profile:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
 }
 
 .user-profile.collapsed {
   justify-content: center;
   padding: 1rem;
+}
+
+.profile-arrow {
+  margin-left: auto;
+  color: #94a3b8;
+  font-size: 0.9rem;
 }
 
 .user-avatar {

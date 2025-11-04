@@ -7,6 +7,8 @@ import SubscriptionsView from '../views/SubscriptionsView.vue';
 import AgendaView from '../views/AgendaView.vue';
 import RecordingsView from '../views/RecordingsView.vue';
 import PsychologistsList from '../components/PsychologistsList.vue';
+import PsychologistProfileView from '../views/PsychologistProfileView.vue';
+import ProfileView from '../views/ProfileView.vue';
 
 const routes = [
     {
@@ -43,6 +45,18 @@ const routes = [
         path: '/psicologos',
         name: 'Psychologists',
         component: PsychologistsList,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/psicologo/:id',
+        name: 'PsychologistProfile',
+        component: PsychologistProfileView,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/perfil',
+        name: 'Profile',
+        component: ProfileView,
         meta: { requiresAuth: true }
     }
 ];

@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import axios from 'axios';
+import { dateUtils } from '../utils/dateUtils';
 
 const { t, locale } = useI18n();
 const router = useRouter();
@@ -35,7 +36,11 @@ onMounted(async () => {
 const loadPsychologists = async () => {
   try {
     const response = await axios.get(`${API_URL}/psychologists`);
-    psychologists.value = response.data;
+    // Actualizar horarios con fechas futuras dinámicas
+    psychologists.value = response.data.map(psych => ({
+      ...psych,
+      proximosHorarios: dateUtils.getFutureDates(7)
+    }));
   } catch (error) {
     console.error(t('errorLoadingPsychologists'), error);
   }
@@ -161,14 +166,7 @@ const saveEditedAppointment = async () => {
 };
 
 const formatDate = (dateString) => {
-  if (!dateString || dateString === 'Invalid Date') return t('dateNotAvailable');
-  const date = new Date(dateString);
-  if (isNaN(date.getTime())) return t('invalidDate');
-  return date.toLocaleDateString(locale.value === 'es' ? 'es-ES' : 'en-US', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric'
-  });
+  return dateUtils.formatDate(dateString, locale.value);
 };
 
 const changeLanguage = (lang) => {
@@ -304,7 +302,7 @@ const changeLanguage = (lang) => {
                     :key="schedule.fecha"
                     :value="schedule.fecha"
                 >
-                  {{ schedule.dia }}
+                  {{ locale === 'es' ? schedule.diaEs : schedule.diaEn }}
                 </option>
               </select>
             </div>
@@ -391,6 +389,7 @@ const changeLanguage = (lang) => {
               <input
                   v-model="editingAppointment.date"
                   type="date"
+                  :min="dateUtils.getMinDate()"
                   class="form-select"
               />
             </div>
