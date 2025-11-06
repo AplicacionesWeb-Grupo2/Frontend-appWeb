@@ -128,17 +128,15 @@ const cards = [
 </template>
 <style scoped>
 .home-container {
-  max-width: 1600px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 3rem 2rem;
-  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f8fafc 0%, #e8f4f8 100%);
+  padding: 2rem;
+  animation: fadeIn 0.5s ease;
 }
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -157,21 +155,19 @@ const cards = [
   flex: 1;
 }
 .welcome-title {
-  font-size: 3.5rem;
-  font-weight: 800;
+  font-size: 2.5rem;
+  font-weight: 700;
   color: #1a202c;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.5rem 0;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -1px;
 }
 .welcome-subtitle {
-  font-size: 1.3rem;
-  color: #64748b;
+  font-size: 1.1rem;
+  color: #718096;
   margin: 0;
-  font-weight: 500;
 }
 /* Language Switcher */
 .language-switcher {
@@ -263,14 +259,14 @@ const cards = [
 }
 .dashboard-card {
   background: white;
-  border-radius: 24px;
-  padding: 2.5rem;
+  border-radius: 20px;
+  padding: 2rem;
   text-decoration: none;
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 2px solid rgba(102, 126, 234, 0.1);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  border: 2px solid transparent;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 .dashboard-card::before {
   content: '';
@@ -281,45 +277,9 @@ const cards = [
 }
 /* Colores específicos para cada tarjeta */
 
-.card-0::before {
-  background: linear-gradient(135deg, #667eea 0%, transparent 100%);
-}
-.card-0:hover {
-  border-color: #667eea;
-}
-.card-0 .card-arrow {
-  color: #667eea;
-}
-.card-1::before {
-  background: linear-gradient(135deg, #f093fb 0%, transparent 100%);
-}
-.card-1:hover {
-  border-color: #f093fb;
-}
-.card-1 .card-arrow {
-  color: #f093fb;
-}
-.card-2::before {
-  background: linear-gradient(135deg, #4facfe 0%, transparent 100%);
-}
-.card-2:hover {
-  border-color: #4facfe;
-}
-.card-2 .card-arrow {
-  color: #4facfe;
-}
-.card-3::before {
-  background: linear-gradient(135deg, #43e97b 0%, transparent 100%);
-}
-.card-3:hover {
-  border-color: #43e97b;
-}
-.card-3 .card-arrow {
-  color: #43e97b;
-}
 .dashboard-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
 }
 .dashboard-card:hover::before {
   opacity: 0.05;
@@ -394,7 +354,7 @@ const cards = [
   transition: all 0.3s ease;
 }
 .step-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-5px);
   box-shadow: 0 12px 28px rgba(56, 189, 248, 0.3);
 }
 .step-number {
@@ -440,7 +400,7 @@ const cards = [
   letter-spacing: 0.5px;
 }
 .cta-button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: 0 12px 28px rgba(14, 165, 233, 0.4);
 }
 /* Responsive Design */

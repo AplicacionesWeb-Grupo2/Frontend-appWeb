@@ -30,11 +30,22 @@
       "descripcion": "Especialista en terapia cognitivo-conductual con 10 años de experiencia trabajando con pacientes con ansiedad y estrés.",
       "biografia": "El Dr. Alberto Salas es un psicólogo clínico dedicado con más de una década de experiencia ayudando a individuos a superar desafíos relacionados con la ansiedad, el estrés y la violencia. Su enfoque terapéutico se basa en la terapia cognitivo-conductual (TCC), una metodología comprobada que ayuda a los pacientes a identificar y cambiar patrones de pensamiento negativos. A lo largo de su carrera, ha trabajado con cientos de pacientes, guiándolos hacia una vida más equilibrada y saludable.",
       "educacion": "Doctorado en Psicología Clínica - Universidad Nacional Mayor de San Marcos",
-      "certificaciones": ["Certificado en Terapia Cognitivo-Conductual (TCC)", "Especialización en Manejo de Crisis", "Diplomado en Violencia Intrafamiliar"],
+      "certificaciones": [
+        "Certificado en Terapia Cognitivo-Conductual (TCC)",
+        "Especialización en Manejo de Crisis",
+        "Diplomado en Violencia Intrafamiliar"
+      ],
       "anosExperiencia": 10,
-      "idiomas": ["Español", "Inglés"],
+      "idiomas": [
+        "Español",
+        "Inglés"
+      ],
       "atendeEdades": "Adultos (18-65 años)",
-      "metodologias": ["Terapia Cognitivo-Conductual", "Terapia de Exposición", "Mindfulness"],
+      "metodologias": [
+        "Terapia Cognitivo-Conductual",
+        "Terapia de Exposición",
+        "Mindfulness"
+      ],
       "proximosHorarios": [
         {
           "fecha": "2024-10-22",
