@@ -241,7 +241,31 @@
       ]
     }
   ],
-  "appointments": [],
+  "appointments": [ {
+    "id": "1",
+    "psychologistId": "1",
+    "psychologistName": "Alberto Salas",
+    "patientId": "1",
+    "patientName": "Administrador",
+    "date": "2024-10-25",
+    "time": "10:00",
+    "notes": "Consulta inicial sobre ansiedad",
+    "status": "confirmed",
+    "createdAt": "2024-10-20T10:00:00.000Z"
+  },
+    {
+      "id": "2",
+      "psychologistId": "1",
+      "psychologistName": "Alberto Salas",
+      "patientId": "2",
+      "patientName": "Usuario Test",
+      "date": "2024-10-26",
+      "time": "14:00",
+      "notes": "Seguimiento terapia",
+      "status": "confirmed",
+      "createdAt": "2024-10-21T14:30:00.000Z"
+    }
+  ],
   "recordings": [
     {
       "id": "1",
@@ -329,3 +353,5 @@
     }
   ]
 }
+
+

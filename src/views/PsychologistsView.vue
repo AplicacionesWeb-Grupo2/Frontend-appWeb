@@ -2,14 +2,14 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import axios from 'axios';
+import { psychologistService } from '../services/psychologistService';
 
 const { t } = useI18n();
 const router = useRouter();
-const API_URL = 'http://localhost:3000';
 
 const psychologists = ref([]);
 const loading = ref(true);
+const error = ref('');
 
 onMounted(async () => {
   await loadPsychologists();
@@ -17,16 +17,59 @@ onMounted(async () => {
 
 const loadPsychologists = async () => {
   try {
-    const response = await axios.get(`${API_URL}/psychologists`);
-    psychologists.value = response.data;
-  } catch (error) {
-    console.error(t('errorLoadingPsychologists'), error);
+    console.log('🔄 TEST: Iniciando carga de psicólogos...');
+    loading.value = true;
+    error.value = '';
+
+    // 1. Primero probar el servicio directamente
+    console.log('🔍 Llamando a psychologistService.getAllPsychologists()');
+
+    const data = await psychologistService.getAllPsychologists();
+    console.log('📦 Datos recibidos del servicio:', data);
+    console.log('📊 Tipo de datos:', typeof data);
+    console.log('🔢 Cantidad:', Array.isArray(data) ? data.length : 'No es array');
+
+    if (Array.isArray(data) && data.length > 0) {
+      psychologists.value = data;
+      console.log('✅ Datos asignados a psychologists:', psychologists.value);
+    } else {
+      console.warn('⚠️ Datos vacíos o no es array');
+      error.value = 'No se encontraron psicólogos';
+    }
+
+  } catch (err) {
+    console.error('❌ ERROR en loadPsychologists:', err);
+    error.value = 'Error: ' + err.message;
+
+    // Forzar datos de prueba
+    psychologists.value = [
+      {
+        id: "1",
+        nombre: "TEST Psicólogo",
+        especialidad: "Test Especialidad",
+        calificacion: 5,
+        imagen: "https://i.pravatar.cc/150?img=1",
+        descripcion: "Descripción de prueba",
+        proximosHorarios: [
+          {
+            fecha: "2024-10-22",
+            dia: "Hoy",
+            horas: ["10:00", "14:00"]
+          }
+        ]
+      }
+    ];
+    console.log('🎭 Usando datos de prueba:', psychologists.value);
+
   } finally {
     loading.value = false;
+    console.log('🏁 Carga completada. Loading:', loading.value);
+    console.log('👥 Psicólogos en estado:', psychologists.value);
   }
 };
 
 const selectPsychologist = (psychologist) => {
+  console.log('🎯 Psicólogo seleccionado:', psychologist);
   router.push({
     name: 'Agenda',
     query: {
@@ -37,10 +80,53 @@ const selectPsychologist = (psychologist) => {
 };
 
 const viewProfile = (psychologist) => {
+  console.log('👤 Viendo perfil de:', psychologist.nombre);
   router.push({
     name: 'PsychologistProfile',
     params: { id: psychologist.id }
   });
+};
+
+// Datos mock para desarrollo
+const getMockPsychologists = () => {
+  console.log('🎭 Usando datos mock para desarrollo');
+  return [
+    {
+      id: "1",
+      nombre: "Alberto Salas",
+      especialidad: "violencia, ansiedad",
+      calificacion: 5,
+      imagen: "https://i.pravatar.cc/150?img=12",
+      descripcion: "Especialista en terapia cognitivo-conductual con 10 años de experiencia trabajando con pacientes con ansiedad y estrés.",
+      proximosHorarios: [
+        {
+          fecha: "2024-10-22",
+          dia: "Martes 22 octubre",
+          horas: ["10:00", "18:00", "20:00", "22:00"]
+        },
+        {
+          fecha: "2024-10-23",
+          dia: "Miércoles 23 octubre",
+          horas: ["09:00", "14:00", "16:00", "21:00"]
+        }
+      ]
+    },
+    {
+      id: "2",
+      nombre: "Beatriz Montalvo",
+      especialidad: "depresión, autoestima",
+      calificacion: 4,
+      imagen: "https://i.pravatar.cc/150?img=45",
+      descripcion: "Psicóloga clínica enfocada en terapia humanista y desarrollo personal.",
+      proximosHorarios: [
+        {
+          fecha: "2024-10-22",
+          dia: "Martes 22 octubre",
+          horas: ["11:00", "15:00", "19:00"]
+        }
+      ]
+    }
+  ];
 };
 </script>
 
@@ -51,6 +137,13 @@ const viewProfile = (psychologist) => {
       <p class="page-subtitle">
         {{ t('selectProfessional') }}
       </p>
+    </div>
+
+    <!-- Mensaje de error -->
+    <div v-if="error" class="error-state">
+      <i class="pi pi-exclamation-triangle"></i>
+      <h3>{{ error }}</h3>
+      <p>Mostrando datos de ejemplo para desarrollo...</p>
     </div>
 
     <div v-if="loading" class="loading-state">
@@ -91,7 +184,7 @@ const viewProfile = (psychologist) => {
                     :key="index"
                     class="slot-badge"
                 >
-                  {{ horario.dia.split(' ')[1] }} {{ horario.dia.split(' ')[2] }}
+                  {{ horario.dia ? horario.dia.split(' ')[1] + ' ' + horario.dia.split(' ')[2] : 'Próxima semana' }}
                 </span>
               </div>
             </div>
@@ -130,6 +223,7 @@ const viewProfile = (psychologist) => {
 </template>
 
 <style scoped>
+/* Tus estilos actuales se mantienen igual */
 .psychologists-list-container {
   max-width: 1600px;
   margin: 0 auto;
@@ -172,6 +266,32 @@ const viewProfile = (psychologist) => {
   color: #64748b;
   margin: 0;
   font-weight: 500;
+}
+
+.error-state {
+  background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+  border: 2px solid #fc8181;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #c53030;
+}
+
+.error-state i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.error-state h3 {
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.error-state p {
+  font-size: 0.9rem;
+  margin: 0;
+  color: #742a2a;
 }
 
 .loading-state {

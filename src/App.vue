@@ -1,23 +1,41 @@
 <script setup>
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import Sidebar from './components/Sidebar-components.vue';
+import { authService } from './services/authService';
 
 const route = useRoute();
+const router = useRouter();
 const { locale } = useI18n();
 
 const isLoginPage = computed(() => route.name === 'Login');
+const userType = computed(() => authService.getUserType());
 
 const changeLanguage = (lang) => {
   locale.value = lang;
 };
+
+// Redirigir psicólogos a su dashboard si están en rutas de paciente
+watch(
+    () => route.path,
+    (newPath) => {
+      const isAuthenticated = authService.isAuthenticated();
+      const currentUserType = authService.getUserType();
+
+      if (isAuthenticated && currentUserType === 'psychologist' &&
+          !newPath.startsWith('/psychologist') &&
+          newPath !== '/login') {
+        router.replace('/psychologist');
+      }
+    }
+);
 </script>
 
 <template>
   <div v-if="!isLoginPage" class="app-layout">
-    <Sidebar />
-    <div class="main-wrapper">
+    <Sidebar v-if="userType !== 'psychologist' || route.path.startsWith('/psychologist')" />
+    <div :class="['main-wrapper', { 'full-width': userType === 'psychologist' && !route.path.startsWith('/psychologist') }]">
       <router-view />
     </div>
   </div>
@@ -90,5 +108,18 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+.main-wrapper.full-width {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* Añadir esta regla para asegurar que los psicólogos vean el sidebar correctamente */
+@media (max-width: 768px) {
+  .main-wrapper.full-width {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
 }
 </style>

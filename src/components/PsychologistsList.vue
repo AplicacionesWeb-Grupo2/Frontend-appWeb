@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const { t } = useI18n();
 const router = useRouter();
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:5293/api';
 
 const psychologists = ref([]);
 const loading = ref(true);

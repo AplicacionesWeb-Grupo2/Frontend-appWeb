@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n';
 import axios from 'axios';
 
 const { t, locale } = useI18n();
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:5293';
 
 const recordings = ref([]);
 const loading = ref(true);

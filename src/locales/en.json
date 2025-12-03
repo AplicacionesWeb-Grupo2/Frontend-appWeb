@@ -171,5 +171,22 @@
   "enterCountry": "Enter your country",
   "saving": "Saving...",
   "profileUpdated": "Profile updated successfully",
-  "profileUpdateError": "Error updating profile. Try again."
+  "profileUpdateError": "Error updating profile. Try again.",
+  "welcomePsychologist": "Welcome, Psychologist",
+  "yourAppointments": "Your scheduled appointments",
+  "totalAppointments": "Total Appointments",
+  "confirmed": "Confirmed",
+  "upcoming": "Upcoming",
+  "appointmentsList": "Appointments List",
+  "loading": "Loading...",
+  "noAppointments": "No appointments",
+  "noAppointmentsPsychologist": "You don't have any appointments scheduled",
+  "patientName": "Patient",
+  "time": "Time",
+  "status": "Status",
+  "notes": "Notes",
+  "pending": "Pending",
+  "spanish": "Spanish",
+  "english": "English"
+
 }

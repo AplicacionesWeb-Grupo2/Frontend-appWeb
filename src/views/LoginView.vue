@@ -107,15 +107,46 @@ const handleLogin = async () => {
   loading.value = true;
 
   try {
+    console.log('🔄 Iniciando login...', {
+      email: email.value,
+      password: password.value
+    });
+
     const success = await authService.login(email.value, password.value);
 
     if (success) {
-      router.push('/');
+      const userType = authService.getUserType();
+      const user = authService.getCurrentUser();
+
+      console.log('✅ Login exitoso!', {
+        userType,
+        user,
+        redirecting: userType === 'psychologist' ? '/psychologist-dashboard' : '/'
+      });
+
+      // Redirigir según tipo de usuario
+      if (userType === 'psychologist') {
+        await router.push('/psychologist-dashboard');
+      } else {
+        await router.push('/');
+      }
     } else {
       errorMessage.value = t('incorrectCredentials');
+      console.log('❌ Login fallido: credenciales incorrectas');
     }
   } catch (error) {
-    errorMessage.value = t('loginError');
+    console.error('🚨 Error en login:', error);
+
+    // Mensajes de error más específicos
+    if (error.response?.status === 401) {
+      errorMessage.value = 'Credenciales incorrectas';
+    } else if (error.response?.status === 404) {
+      errorMessage.value = 'Endpoint no encontrado - verifica la URL del backend';
+    } else if (error.code === 'ERR_NETWORK') {
+      errorMessage.value = 'No se puede conectar al servidor. ¿Está corriendo el backend?';
+    } else {
+      errorMessage.value = t('loginError');
+    }
   } finally {
     loading.value = false;
   }

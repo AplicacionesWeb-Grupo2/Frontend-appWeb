@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import logoUrl from '../assets/icons/logo_EiraMind.png';
 import { useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -11,6 +11,16 @@ const { t } = useI18n();
 
 const isCollapsed = ref(false);
 const user = ref(authService.getCurrentUser());
+const userType = ref(authService.getUserType());
+
+// Observar cambios en la autenticación
+watch(
+    () => authService.getCurrentUser(),
+    (newUser) => {
+      user.value = newUser;
+      userType.value = authService.getUserType();
+    }
+);
 
 const toggleSidebar = () => {
   isCollapsed.value = !isCollapsed.value;
@@ -21,7 +31,8 @@ const logout = () => {
   router.push('/login');
 };
 
-const navigationItems = [
+// Navegación para pacientes
+const patientNavigationItems = [
   {
     name: 'Inicio',
     icon: 'pi-home',
@@ -55,6 +66,44 @@ const navigationItems = [
   }
 ];
 
+// Navegación para psicólogos
+const psychologistNavigationItems = [
+  {
+    name: 'Dashboard',
+    icon: 'pi-home',
+    route: '/psychologist',
+    color: '#667eea'
+  },
+  {
+    name: 'Mis Citas',
+    icon: 'pi-calendar',
+    route: '/psychologist/appointments',
+    color: '#f093fb'
+  },
+  {
+    name: 'Pacientes',
+    icon: 'pi-users',
+    route: '/psychologist/patients',
+    color: '#4facfe'
+  },
+  {
+    name: 'Mi Perfil',
+    icon: 'pi-user',
+    route: '/psychologist/profile',
+    color: '#43e97b'
+  }
+];
+
+const navigationItems = computed(() => {
+  return userType.value === 'psychologist'
+      ? psychologistNavigationItems
+      : patientNavigationItems;
+});
+
+const userRole = computed(() => {
+  return userType.value === 'psychologist' ? 'Psicólogo' : 'Paciente';
+});
+
 const isActive = (routePath) => {
   return route.path === routePath;
 };
@@ -74,19 +123,32 @@ const isActive = (routePath) => {
         <transition name="fade">
           <div v-if="!isCollapsed" class="logo-text-wrapper">
             <h2 class="logo-text">Eira<span class="logo-highlight">Mind</span></h2>
+            <p v-if="userType === 'psychologist'" class="psychologist-badge">
+              <i class="pi pi-star"></i> Modo Psicólogo
+            </p>
           </div>
         </transition>
       </div>
     </div>
 
-    <router-link to="/perfil" class="user-profile" :class="{ collapsed: isCollapsed }">
+    <router-link
+        :to="userType === 'psychologist' ? '/psychologist/profile' : '/perfil'"
+        class="user-profile"
+        :class="{ collapsed: isCollapsed }"
+    >
       <div class="user-avatar">
-        <i class="pi pi-user"></i>
+        <img
+            v-if="user?.imagen"
+            :src="user.imagen"
+            :alt="user?.nombre"
+            class="avatar-img"
+        />
+        <i v-else class="pi pi-user"></i>
       </div>
       <transition name="fade">
         <div v-if="!isCollapsed" class="user-info">
           <p class="user-name">{{ user?.nombre || 'Usuario' }}</p>
-          <p class="user-role">Paciente</p>
+          <p class="user-role">{{ userRole }}</p>
         </div>
       </transition>
       <transition name="fade">
@@ -105,7 +167,7 @@ const isActive = (routePath) => {
       >
         <div class="nav-icon-wrapper">
           <i :class="'pi ' + item.icon" class="nav-icon" :style="{ color: isActive(item.route) ? 'white' : item.color }"></i>
-          <span v-if="item.badge && !isCollapsed" class="badge">{{ item.badge }}</span>
+          <span v-if="item.badge && !isCollapsed && userType === 'patient'" class="badge">{{ item.badge }}</span>
         </div>
         <transition name="fade">
           <span v-if="!isCollapsed" class="nav-label">{{ item.name }}</span>
@@ -517,4 +579,28 @@ const isActive = (routePath) => {
     padding: 0.875rem;
   }
 }
+
+.psychologist-badge {
+  background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.psychologist-badge i {
+  font-size: 0.7rem;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 </style>

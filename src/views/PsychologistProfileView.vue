@@ -2,16 +2,15 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import axios from 'axios';
-import { dateUtils } from '../utils/dateUtils';
+import { psychologistService } from '../services/psychologistService';
 
 const { t, locale } = useI18n();
 const route = useRoute();
 const router = useRouter();
-const API_URL = 'http://localhost:3000';
 
 const psychologist = ref(null);
 const loading = ref(true);
+const error = ref('');
 
 onMounted(async () => {
   await loadPsychologist();
@@ -19,30 +18,88 @@ onMounted(async () => {
 
 const loadPsychologist = async () => {
   try {
-    const response = await axios.get(`${API_URL}/psychologists/${route.params.id}`);
-    psychologist.value = {
-      ...response.data,
-      proximosHorarios: dateUtils.getFutureDates(7)
-    };
-  } catch (error) {
-    console.error('Error loading psychologist', error);
+    console.log(`🔍 Cargando psicólogo ID: ${route.params.id}`);
+    loading.value = true;
+    error.value = '';
+
+    // Obtener todos los psicólogos y filtrar por ID
+    const allPsychologists = await psychologistService.getAllPsychologists();
+    const foundPsych = allPsychologists.find(p => p.id === route.params.id);
+
+    if (foundPsych) {
+      psychologist.value = foundPsych;
+      console.log('✅ Psicólogo encontrado:', psychologist.value);
+    } else {
+      error.value = 'Psicólogo no encontrado';
+      console.error('❌ Psicólogo no encontrado con ID:', route.params.id);
+    }
+
+  } catch (err) {
+    console.error('❌ Error cargando psicólogo:', err);
+    error.value = 'Error cargando el perfil del psicólogo';
+
+    // Datos mock para desarrollo
+    psychologist.value = getMockPsychologist();
+
   } finally {
     loading.value = false;
   }
 };
 
 const scheduleAppointment = () => {
-  router.push({
-    name: 'Agenda',
-    query: {
-      psychologistId: psychologist.value.id,
-      openModal: 'true'
-    }
-  });
+  if (psychologist.value) {
+    router.push({
+      name: 'Agenda',
+      query: {
+        psychologistId: psychologist.value.id,
+        openModal: 'true'
+      }
+    });
+  }
 };
 
 const goBack = () => {
   router.back();
+};
+
+// Datos mock para desarrollo
+const getMockPsychologist = () => {
+  return {
+    id: route.params.id,
+    nombre: "Alberto Salas",
+    especialidad: "violencia, ansiedad",
+    calificacion: 5,
+    imagen: "https://i.pravatar.cc/150?img=12",
+    descripcion: "Especialista en terapia cognitivo-conductual con 10 años de experiencia trabajando con pacientes con ansiedad y estrés.",
+    biografia: "El Dr. Alberto Salas es un psicólogo clínico dedicado con más de una década de experiencia ayudando a individuos a superar desafíos relacionados con la ansiedad, el estrés y la violencia.",
+    educacion: "Doctorado en Psicología Clínica - Universidad Nacional Mayor de San Marcos",
+    certificaciones: [
+      "Certificado en Terapia Cognitivo-Conductual (TCC)",
+      "Especialización en Manejo de Crisis",
+      "Diplomado en Violencia Intrafamiliar"
+    ],
+    idiomas: ["Español", "Inglés"],
+    metodologias: [
+      "Terapia Cognitivo-Conductual",
+      "Terapia de Exposición",
+      "Mindfulness"
+    ],
+    anosExperiencia: 10,
+    atendeEdades: "Adultos (18-65 años)",
+    email: "alberto.salas@eiramind.com",
+    proximosHorarios: [
+      {
+        fecha: "2024-10-22",
+        dia: "Martes 22 octubre",
+        horas: ["10:00", "18:00", "20:00", "22:00"]
+      },
+      {
+        fecha: "2024-10-23",
+        dia: "Miércoles 23 octubre",
+        horas: ["09:00", "14:00", "16:00", "21:00"]
+      }
+    ]
+  };
 };
 </script>
 

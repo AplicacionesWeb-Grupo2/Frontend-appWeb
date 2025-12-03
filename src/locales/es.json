@@ -171,5 +171,21 @@
   "enterCountry": "Ingresa tu país",
   "saving": "Guardando...",
   "profileUpdated": "Perfil actualizado exitosamente",
-  "profileUpdateError": "Error al actualizar el perfil. Intenta de nuevo."
+  "profileUpdateError": "Error al actualizar el perfil. Intenta de nuevo.",
+  "welcomePsychologist": "Bienvenido, Psicólogo",
+  "yourAppointments": "Tus citas agendadas",
+  "totalAppointments": "Citas Totales",
+  "confirmed": "Confirmadas",
+  "upcoming": "Próximas",
+  "appointmentsList": "Lista de Citas",
+  "loading": "Cargando...",
+  "noAppointments": "No hay citas",
+  "noAppointmentsPsychologist": "No tienes citas agendadas actualmente",
+  "patientName": "Paciente",
+  "time": "Hora",
+  "status": "Estado",
+  "notes": "Notas",
+  "pending": "Pendiente",
+  "spanish": "Español",
+  "english": "Inglés"
 }
