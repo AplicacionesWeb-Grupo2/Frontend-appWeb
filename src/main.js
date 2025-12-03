@@ -10,14 +10,21 @@ import Aura from '@primeuix/themes/aura';
 // IMPORTANTE: Agregar PrimeIcons
 import 'primeicons/primeicons.css';
 
+// Importar axios instance configurada
+import { axiosInstance } from './services/authService';
+
 import { Button, InputText, Card, Toolbar, Image } from 'primevue';
 
-createApp(App)
-    .use(PrimeVue, {
-        theme: {
-            preset: Aura
-        }
-    })
+const app = createApp(App);
+
+// Hacer axiosInstance disponible globalmente
+app.config.globalProperties.$http = axiosInstance;
+
+app.use(PrimeVue, {
+    theme: {
+        preset: Aura
+    }
+})
     .use(router)
     .use(i18n)
     .component('pv-Image', Image)

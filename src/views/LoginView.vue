@@ -117,10 +117,12 @@ const handleLogin = async () => {
     if (success) {
       const userType = authService.getUserType();
       const user = authService.getCurrentUser();
+      const token = authService.getToken();
 
       console.log('✅ Login exitoso!', {
         userType,
         user,
+        token: token ? 'Token presente' : 'Sin token',
         redirecting: userType === 'psychologist' ? '/psychologist-dashboard' : '/'
       });
 

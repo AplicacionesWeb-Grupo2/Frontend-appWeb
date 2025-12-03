@@ -8,7 +8,7 @@ import { dateUtils } from '../utils/dateUtils';
 const { t, locale } = useI18n();
 const router = useRouter();
 const route = useRoute();
-const API_URL = 'http://localhost:5293/api';
+const API_URL = 'https://app-eiramind.azurewebsites.net/api';
 
 const psychologists = ref([]);
 const appointments = ref([]);
@@ -48,7 +48,7 @@ const loadPsychologists = async () => {
 
 const loadAppointments = async () => {
   try {
-    const response = await axios.get(`${API_URL}/Appointments`);
+    const response = await axios.get(`${API_URL}/appointments`);
     appointments.value = response.data;
   } catch (error) {
     console.error(t('errorLoadingAppointments'), error);
@@ -109,7 +109,7 @@ const confirmAppointment = async () => {
       createdAt: new Date().toISOString()
     };
 
-    await axios.post(`${API_URL}/Appointments`, appointmentData);
+    await axios.post(`${API_URL}/appointments`, appointmentData);
     alert(t('appointmentScheduled'));
     await loadAppointments();
     closeModal();
@@ -126,7 +126,7 @@ const deleteAppointment = async (appointmentId) => {
   }
 
   try {
-    await axios.delete(`${API_URL}/Appointments/${appointmentId}`);
+    await axios.delete(`${API_URL}/appointments/${appointmentId}`);
     alert(t('appointmentCanceled'));
     await loadAppointments();
   } catch (error) {
@@ -155,7 +155,7 @@ const saveEditedAppointment = async () => {
   }
 
   try {
-    await axios.put(`${API_URL}/Appointments/${editingAppointment.value.id}`, editingAppointment.value);
+    await axios.put(`${API_URL}/appointments/${editingAppointment.value.id}`, editingAppointment.value);
     alert(t('appointmentModified'));
     await loadAppointments();
     closeEditModal();

@@ -1,7 +1,42 @@
 import axios from 'axios';
 
 // URL base de tu backend .NET
-const API_URL = 'http://localhost:5293/api';
+const API_URL = 'https://app-eiramind.azurewebsites.net/api';
+
+// Crear instancia de axios con configuración global
+const axiosInstance = axios.create({
+    baseURL: API_URL,
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
+
+// Interceptor para agregar token a las solicitudes
+axiosInstance.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+// Interceptor para manejar errores de autenticación
+axiosInstance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            // Token expirado o inválido
+            authService.logout();
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    }
+);
 
 export const authService = {
     async login(email, password) {
@@ -10,13 +45,9 @@ export const authService = {
             console.log('📡 Endpoint:', `${API_URL}/Users/login`);
 
             // 1. Primero intentar login como User (paciente)
-            const loginResponse = await axios.post(`${API_URL}/Users/login`, {
+            const loginResponse = await axiosInstance.post('/Users/login', {
                 email: email,
                 password: password
-            }, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
             });
 
             console.log('✅ Respuesta del login:', loginResponse.data);
@@ -24,23 +55,14 @@ export const authService = {
             if (loginResponse.data && loginResponse.data.success) {
                 // Usuario encontrado en Users
                 const userData = loginResponse.data.data;
-                const userWithoutPassword = {
-                    ...userData,
-                    userType: 'patient'
-                };
-
-                localStorage.setItem('user', JSON.stringify(userWithoutPassword));
-                localStorage.setItem('isAuthenticated', 'true');
-                localStorage.setItem('userType', 'patient');
-                localStorage.setItem('userId', userData.id);
-
-                console.log('👤 Usuario logueado (paciente):', userWithoutPassword);
+                this.saveAuthData(userData, 'patient');
+                console.log('👤 Usuario logueado (paciente):', userData);
                 return true;
             }
 
             // 2. Si no es User, intentar como Psychologist
             console.log('🔄 Buscando como psicólogo...');
-            const psychologistsResponse = await axios.get(`${API_URL}/Psychologists`);
+            const psychologistsResponse = await axiosInstance.get('/Psychologists');
             console.log('📊 Psicólogos disponibles:', psychologistsResponse.data);
 
             if (psychologistsResponse.data && psychologistsResponse.data.success) {
@@ -51,18 +73,18 @@ export const authService = {
                 );
 
                 if (psychologist) {
-                    const psychologistWithoutPassword = {
-                        ...psychologist,
-                        userType: 'psychologist'
+                    // Para psicólogos, crear un objeto similar al LoginResponse
+                    const psychologistAuth = {
+                        Id: psychologist.id,
+                        Email: psychologist.email,
+                        Nombre: psychologist.nombre,
+                        Tipo: 'psicologo',
+                        Token: this.generateMockToken(psychologist.id, psychologist.email, 'psicologo'),
+                        TokenExpiration: new Date(Date.now() + 2 * 60 * 60 * 1000) // 2 horas
                     };
-                    delete psychologistWithoutPassword.password;
 
-                    localStorage.setItem('user', JSON.stringify(psychologistWithoutPassword));
-                    localStorage.setItem('isAuthenticated', 'true');
-                    localStorage.setItem('userType', 'psychologist');
-                    localStorage.setItem('userId', psychologist.id);
-
-                    console.log('👨‍⚕️ Psicólogo logueado:', psychologistWithoutPassword);
+                    this.saveAuthData(psychologistAuth, 'psychologist');
+                    console.log('👨‍⚕️ Psicólogo logueado:', psychologistAuth);
                     return true;
                 }
             }
@@ -83,7 +105,23 @@ export const authService = {
         }
     },
 
+    saveAuthData(userData, userType) {
+        localStorage.setItem('token', userData.Token);
+        localStorage.setItem('tokenExpiration', userData.TokenExpiration);
+        localStorage.setItem('user', JSON.stringify({
+            id: userData.Id,
+            email: userData.Email,
+            nombre: userData.Nombre,
+            tipo: userData.Tipo
+        }));
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('userType', userType);
+        localStorage.setItem('userId', userData.Id);
+    },
+
     logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('tokenExpiration');
         localStorage.removeItem('user');
         localStorage.removeItem('isAuthenticated');
         localStorage.removeItem('userType');
@@ -91,6 +129,20 @@ export const authService = {
     },
 
     isAuthenticated() {
+        const token = localStorage.getItem('token');
+        const expiration = localStorage.getItem('tokenExpiration');
+
+        if (!token || !expiration) return false;
+
+        // Verificar si el token ha expirado
+        const now = new Date();
+        const expirationDate = new Date(expiration);
+
+        if (now > expirationDate) {
+            this.logout();
+            return false;
+        }
+
         return localStorage.getItem('isAuthenticated') === 'true';
     },
 
@@ -105,5 +157,27 @@ export const authService = {
 
     getUserId() {
         return localStorage.getItem('userId');
+    },
+
+    getToken() {
+        return localStorage.getItem('token');
+    },
+
+    // Método temporal para generar token mock para psicólogos
+    // Esto debería ser reemplazado por un endpoint de login para psicólogos en el backend
+    generateMockToken(userId, email, userType) {
+        // En producción, esto debe venir del backend
+        // Esto es solo temporal hasta que implementes login para psicólogos
+        return `mock_token_${userId}_${email}_${userType}_${Date.now()}`;
+    },
+
+    // Método para refrescar el token (implementar cuando lo necesites)
+    async refreshToken() {
+        // Implementar lógica para refrescar el token
+        console.log('Refrescando token...');
+        // Esta función debería llamar a un endpoint en el backend para refrescar el token
     }
 };
+
+// Exportar la instancia de axios configurada
+export { axiosInstance };

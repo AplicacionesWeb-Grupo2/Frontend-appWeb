@@ -7,7 +7,7 @@ import { authService } from '../services/authService';
 
 const { t, locale } = useI18n();
 const router = useRouter();
-const API_URL = 'http://localhost:5293/api';
+const API_URL = 'https://app-eiramind.azurewebsites.net/api';
 
 const user = ref(null);
 const editMode = ref(false);

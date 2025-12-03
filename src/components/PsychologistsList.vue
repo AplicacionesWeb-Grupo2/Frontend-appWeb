@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const { t } = useI18n();
 const router = useRouter();
-const API_URL = 'http://localhost:5293/api';
+const API_URL = 'https://app-eiramind.azurewebsites.net/api';
 
 const psychologists = ref([]);
 const loading = ref(true);

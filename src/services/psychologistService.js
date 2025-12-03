@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5293/api';
+const API_URL = 'https://app-eiramind.azurewebsites.net/api';
 
 export const psychologistService = {
     async getAllPsychologists() {

@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5293/api';
+const API_URL = 'https://app-eiramind.azurewebsites.net/api';
 
 export const appointmentService = {
     async getAllAppointments() {
         try {
             console.log('📅 Obteniendo todas las citas...');
 
-            const response = await axios.get(`${API_URL}/Appointments`);
+            const response = await axios.get(`${API_URL}/appointments`);
             console.log('📊 Respuesta citas:', response.data);
 
             if (response.data && response.data.success) {
@@ -48,7 +48,7 @@ export const appointmentService = {
         try {
             console.log('➕ Creando nueva cita:', appointmentData);
 
-            const response = await axios.post(`${API_URL}/Appointments`, appointmentData);
+            const response = await axios.post(`${API_URL}/appointments`, appointmentData);
             console.log('✅ Cita creada:', response.data);
 
             return response.data;
