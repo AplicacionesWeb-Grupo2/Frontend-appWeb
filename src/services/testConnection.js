@@ -1,39 +1,36 @@
 import axios from 'axios';
 
-const API_URL = 'https://app-eiramind.azurewebsites.net/api';
+const API_URL = 'http://localhost:3000';
 
 export const testConnection = {
     async testBackend() {
         try {
-            console.log('🔍 Probando conexión con backend...');
+            console.log('🔍 Probando conexión con JSON Server...');
 
-            // Test 1: Endpoint básico
-            const response1 = await axios.get(`${API_URL}/test`);
-            console.log('✅ Test endpoint:', response1.data);
+            // Test 1: Intentar obtener los usuarios (en minúsculas)
+            // JSON Server devolverá un array directo en response.data
+            const responseUsers = await axios.get(`${API_URL}/users`);
+            console.log('✅ Users endpoint:', responseUsers.data);
 
-            // Test 2: Users endpoint
-            const response2 = await axios.get(`${API_URL}/Users`);
-            console.log('✅ Users endpoint:', response2.data);
-
-            // Test 3: Psychologists endpoint
-            const response3 = await axios.get(`${API_URL}/Psychologists`);
-            console.log('✅ Psychologists endpoint:', response3.data);
+            // Test 2: Intentar obtener psicólogos (en minúsculas)
+            const responsePsych = await axios.get(`${API_URL}/psychologists`);
+            console.log('✅ Psychologists endpoint:', responsePsych.data);
 
             return {
                 success: true,
-                backend: response1.data,
-                usersCount: response2.data?.data?.length || 0,
-                psychologistsCount: response3.data?.data?.length || 0
+                message: "Conexión exitosa con JSON Server",
+                usersCount: responseUsers.data?.length || 0,
+                psychologistsCount: responsePsych.data?.length || 0
             };
 
         } catch (error) {
             console.error('❌ Error conectando al backend:', error.message);
 
             if (error.response) {
-                console.error('📡 Detalles:', {
+                console.error('📡 Detalles del error:', {
                     status: error.response.status,
-                    data: error.response.data,
-                    url: error.config.url
+                    url: error.config.url,
+                    info: "Asegúrate de que json-server esté corriendo en el puerto 3000"
                 });
             }
 

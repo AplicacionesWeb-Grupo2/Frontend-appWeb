@@ -8,7 +8,7 @@ import { dateUtils } from '../utils/dateUtils';
 const { t, locale } = useI18n();
 const router = useRouter();
 const route = useRoute();
-const API_URL = 'https://app-eiramind.azurewebsites.net/api';
+const API_URL = 'http://localhost:3000';
 
 const psychologists = ref([]);
 const appointments = ref([]);

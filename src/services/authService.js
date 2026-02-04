@@ -1,7 +1,9 @@
 import axios from 'axios';
+import id from 'vue-cal/dist/i18n/id.es.js';
 
 // URL base de tu backend .NET
-const API_URL = 'https://app-eiramind.azurewebsites.net/api';
+//const API_URL = 'https://app-eiramind.azurewebsites.net/api';
+const API_URL = 'http://localhost:3000';
 
 // Crear instancia de axios con configuración global
 const axiosInstance = axios.create({
@@ -42,23 +44,44 @@ export const authService = {
     async login(email, password) {
         try {
             console.log('🔍 Intentando login con:', { email, password });
-            console.log('📡 Endpoint:', `${API_URL}/Users/login`);
+            // console.log('📡 Endpoint:', `${API_URL}/Users/login`);
 
             // 1. Primero intentar login como User (paciente)
-            const loginResponse = await axiosInstance.post('/Users/login', {
-                email: email,
-                password: password
-            });
+            // const loginResponse = await axiosInstance.post('/Users/login', {
+            //     email: email,
+            //     password: password
+            // });
 
-            console.log('✅ Respuesta del login:', loginResponse.data);
+            // console.log('✅ Respuesta del login:', loginResponse.data);
 
-            if (loginResponse.data && loginResponse.data.success) {
-                // Usuario encontrado en Users
-                const userData = loginResponse.data.data;
-                this.saveAuthData(userData, 'patient');
-                console.log('👤 Usuario logueado (paciente):', userData);
+            const userRes = await axiosInstance.get(`/users?email=${email}&password=${password}`);
+
+            // if (loginResponse.data && loginResponse.data.success) {
+            //     // Usuario encontrado en Users
+            //     const userData = loginResponse.data.data;
+            //     this.saveAuthData(userData, 'patient');
+            //     console.log('👤 Usuario logueado (paciente):', userData);
+            //     return true;
+            // }
+
+            if (userRes.data && userRes.data.length > 0) {
+                const user = userRes.data[0]; // Asumimos que el backend devuelve un array de usuarios
+                console.log('✅ Paciente encontrado:', user);
+
+                const authData = {
+                    id: user.id,
+                    email: user.email,
+                    nombre: user.nombre,
+                    tipo: user.tipo || 'paciente',
+                    token: this.generateMockToken(user.id, user.email, 'patient'),
+                    tokenExpiration: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString()
+                };
+                
+                this.saveAuthData(authData, 'patient');
                 return true;
             }
+        
+
 
             // 2. Si no es User, intentar como Psychologist
             console.log('🔄 Buscando como psicólogo...');

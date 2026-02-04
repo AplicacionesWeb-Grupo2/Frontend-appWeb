@@ -15,6 +15,11 @@
       "nombre": "Usuario Test",
       "tipo": "paciente",
       "createdAt": "2024-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "e8d6",
+      "email": "admin@eiramind.com",
+      "password": "admin123"
     }
   ],
   "psychologists": [
@@ -241,18 +246,19 @@
       ]
     }
   ],
-  "appointments": [ {
-    "id": "1",
-    "psychologistId": "1",
-    "psychologistName": "Alberto Salas",
-    "patientId": "1",
-    "patientName": "Administrador",
-    "date": "2024-10-25",
-    "time": "10:00",
-    "notes": "Consulta inicial sobre ansiedad",
-    "status": "confirmed",
-    "createdAt": "2024-10-20T10:00:00.000Z"
-  },
+  "appointments": [
+    {
+      "id": "1",
+      "psychologistId": "1",
+      "psychologistName": "Alberto Salas",
+      "patientId": "1",
+      "patientName": "Administrador",
+      "date": "2024-10-25",
+      "time": "10:00",
+      "notes": "Consulta inicial sobre ansiedad",
+      "status": "confirmed",
+      "createdAt": "2024-10-20T10:00:00.000Z"
+    },
     {
       "id": "2",
       "psychologistId": "1",
@@ -278,7 +284,7 @@
       "duration": 60,
       "thumbnail": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=300&fit=crop",
       "videoUrl": "https://www.example.com/video1.mp4",
-      "watched": false,
+      "watched": true,
       "notes": "El paciente mostró buena receptividad a las técnicas enseñadas. Se recomienda practicar diariamente la respiración profunda."
     },
     {
@@ -353,5 +359,3 @@
     }
   ]
 }
-
-
